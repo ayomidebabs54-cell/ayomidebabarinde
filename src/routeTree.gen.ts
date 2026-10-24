@@ -11,10 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ProcessRouteImport } from './routes/process'
+import { Route as TestimonialsRouteImport } from './routes/testimonials'
+import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
+import { Route as PortfolioAiAnimationRouteImport } from './routes/portfolio.ai-animation'
+import { Route as PortfolioKlaviyoRouteImport } from './routes/portfolio.klaviyo'
+import { Route as PortfolioShopifyRouteImport } from './routes/portfolio.shopify'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesAiAnimationRouteImport } from './routes/services.ai-animation'
 import { Route as ServicesKlaviyoRouteImport } from './routes/services.klaviyo'
 import { Route as ServicesShopifyRouteImport } from './routes/services.shopify'
+import { Route as WorkSlugRouteImport } from './routes/work.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,6 +31,36 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProcessRoute = ProcessRouteImport.update({
+  id: '/process',
+  path: '/process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestimonialsRoute = TestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
+  id: '/portfolio/',
+  path: '/portfolio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioAiAnimationRoute = PortfolioAiAnimationRouteImport.update({
+  id: '/portfolio/ai-animation',
+  path: '/portfolio/ai-animation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioKlaviyoRoute = PortfolioKlaviyoRouteImport.update({
+  id: '/portfolio/klaviyo',
+  path: '/portfolio/klaviyo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioShopifyRoute = PortfolioShopifyRouteImport.update({
+  id: '/portfolio/shopify',
+  path: '/portfolio/shopify',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
@@ -46,30 +83,56 @@ const ServicesShopifyRoute = ServicesShopifyRouteImport.update({
   path: '/services/shopify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkSlugRoute = WorkSlugRouteImport.update({
+  id: '/work/$slug',
+  path: '/work/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/process': typeof ProcessRoute
+  '/testimonials': typeof TestimonialsRoute
+  '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
+  '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
+  '/portfolio/shopify': typeof PortfolioShopifyRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
+  '/work/$slug': typeof WorkSlugRoute
+  '/portfolio/': typeof PortfolioIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/process': typeof ProcessRoute
+  '/testimonials': typeof TestimonialsRoute
+  '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
+  '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
+  '/portfolio/shopify': typeof PortfolioShopifyRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
+  '/work/$slug': typeof WorkSlugRoute
+  '/portfolio': typeof PortfolioIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/process': typeof ProcessRoute
+  '/testimonials': typeof TestimonialsRoute
+  '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
+  '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
+  '/portfolio/shopify': typeof PortfolioShopifyRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
+  '/work/$slug': typeof WorkSlugRoute
+  '/portfolio/': typeof PortfolioIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -77,34 +140,62 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/process'
+    | '/testimonials'
+    | '/portfolio/ai-animation'
+    | '/portfolio/klaviyo'
+    | '/portfolio/shopify'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
+    | '/work/$slug'
+    | '/portfolio/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/process'
+    | '/testimonials'
+    | '/portfolio/ai-animation'
+    | '/portfolio/klaviyo'
+    | '/portfolio/shopify'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
+    | '/work/$slug'
+    | '/portfolio'
     | '/services'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/process'
+    | '/testimonials'
+    | '/portfolio/ai-animation'
+    | '/portfolio/klaviyo'
+    | '/portfolio/shopify'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
+    | '/work/$slug'
+    | '/portfolio/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ProcessRoute: typeof ProcessRoute
+  TestimonialsRoute: typeof TestimonialsRoute
+  PortfolioAiAnimationRoute: typeof PortfolioAiAnimationRoute
+  PortfolioKlaviyoRoute: typeof PortfolioKlaviyoRoute
+  PortfolioShopifyRoute: typeof PortfolioShopifyRoute
   ServicesAiAnimationRoute: typeof ServicesAiAnimationRoute
   ServicesKlaviyoRoute: typeof ServicesKlaviyoRoute
   ServicesShopifyRoute: typeof ServicesShopifyRoute
+  WorkSlugRoute: typeof WorkSlugRoute
+  PortfolioIndexRoute: typeof PortfolioIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -122,6 +213,48 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/process': {
+      id: '/process'
+      path: '/process'
+      fullPath: '/process'
+      preLoaderRoute: typeof ProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/testimonials': {
+      id: '/testimonials'
+      path: '/testimonials'
+      fullPath: '/testimonials'
+      preLoaderRoute: typeof TestimonialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio/': {
+      id: '/portfolio/'
+      path: '/portfolio'
+      fullPath: '/portfolio/'
+      preLoaderRoute: typeof PortfolioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio/ai-animation': {
+      id: '/portfolio/ai-animation'
+      path: '/portfolio/ai-animation'
+      fullPath: '/portfolio/ai-animation'
+      preLoaderRoute: typeof PortfolioAiAnimationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio/klaviyo': {
+      id: '/portfolio/klaviyo'
+      path: '/portfolio/klaviyo'
+      fullPath: '/portfolio/klaviyo'
+      preLoaderRoute: typeof PortfolioKlaviyoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio/shopify': {
+      id: '/portfolio/shopify'
+      path: '/portfolio/shopify'
+      fullPath: '/portfolio/shopify'
+      preLoaderRoute: typeof PortfolioShopifyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/': {
@@ -152,15 +285,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesShopifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/work/$slug': {
+      id: '/work/$slug'
+      path: '/work/$slug'
+      fullPath: '/work/$slug'
+      preLoaderRoute: typeof WorkSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ProcessRoute: ProcessRoute,
+  TestimonialsRoute: TestimonialsRoute,
+  PortfolioAiAnimationRoute: PortfolioAiAnimationRoute,
+  PortfolioKlaviyoRoute: PortfolioKlaviyoRoute,
+  PortfolioShopifyRoute: PortfolioShopifyRoute,
   ServicesAiAnimationRoute: ServicesAiAnimationRoute,
   ServicesKlaviyoRoute: ServicesKlaviyoRoute,
   ServicesShopifyRoute: ServicesShopifyRoute,
+  WorkSlugRoute: WorkSlugRoute,
+  PortfolioIndexRoute: PortfolioIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
