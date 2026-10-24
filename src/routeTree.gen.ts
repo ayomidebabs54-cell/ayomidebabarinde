@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesAiAnimationRouteImport } from './routes/services.ai-animation'
+import { Route as ServicesKlaviyoRouteImport } from './routes/services.klaviyo'
+import { Route as ServicesShopifyRouteImport } from './routes/services.shopify'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAiAnimationRoute = ServicesAiAnimationRouteImport.update({
+  id: '/services/ai-animation',
+  path: '/services/ai-animation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesKlaviyoRoute = ServicesKlaviyoRouteImport.update({
+  id: '/services/klaviyo',
+  path: '/services/klaviyo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesShopifyRoute = ServicesShopifyRouteImport.update({
+  id: '/services/shopify',
+  path: '/services/shopify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/services/ai-animation': typeof ServicesAiAnimationRoute
+  '/services/klaviyo': typeof ServicesKlaviyoRoute
+  '/services/shopify': typeof ServicesShopifyRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/services/ai-animation': typeof ServicesAiAnimationRoute
+  '/services/klaviyo': typeof ServicesKlaviyoRoute
+  '/services/shopify': typeof ServicesShopifyRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/services/ai-animation': typeof ServicesAiAnimationRoute
+  '/services/klaviyo': typeof ServicesKlaviyoRoute
+  '/services/shopify': typeof ServicesShopifyRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/services/ai-animation'
+    | '/services/klaviyo'
+    | '/services/shopify'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/services/ai-animation'
+    | '/services/klaviyo'
+    | '/services/shopify'
+    | '/services'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/services/ai-animation'
+    | '/services/klaviyo'
+    | '/services/shopify'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ServicesAiAnimationRoute: typeof ServicesAiAnimationRoute
+  ServicesKlaviyoRoute: typeof ServicesKlaviyoRoute
+  ServicesShopifyRoute: typeof ServicesShopifyRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/ai-animation': {
+      id: '/services/ai-animation'
+      path: '/services/ai-animation'
+      fullPath: '/services/ai-animation'
+      preLoaderRoute: typeof ServicesAiAnimationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/klaviyo': {
+      id: '/services/klaviyo'
+      path: '/services/klaviyo'
+      fullPath: '/services/klaviyo'
+      preLoaderRoute: typeof ServicesKlaviyoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/shopify': {
+      id: '/services/shopify'
+      path: '/services/shopify'
+      fullPath: '/services/shopify'
+      preLoaderRoute: typeof ServicesShopifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ServicesAiAnimationRoute: ServicesAiAnimationRoute,
+  ServicesKlaviyoRoute: ServicesKlaviyoRoute,
+  ServicesShopifyRoute: ServicesShopifyRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
