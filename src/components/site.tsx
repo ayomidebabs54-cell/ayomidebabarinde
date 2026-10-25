@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrowUpRight, Menu, X, MessageCircle, Search } from "lucide-react";
-import { site, services } from "@/config/site";
+import { site, services, hasWhatsApp, hasEmail, liveProfiles } from "@/config/site";
 import { projects, categoryMeta, industries, type Category, type Project } from "@/data/projects";
 import { testimonials } from "@/data/testimonials";
 
@@ -42,11 +42,20 @@ export function GhostButton({ to, children, href }: { to?: string; href?: string
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(false); btnRef.current?.focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto mt-3 flex max-w-7xl items-center justify-between rounded-2xl glass px-4 py-2.5 md:px-6">
         <Logo />
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} className="rounded-full px-3.5 py-2 text-sm text-muted-foreground transition hover:text-foreground"
               activeProps={{ className: "text-foreground bg-secondary" }}>
@@ -57,12 +66,13 @@ export function Header() {
         <div className="hidden lg:block">
           <PrimaryButton to="/consultation">Book a Free Consultation</PrimaryButton>
         </div>
-        <button aria-label="Open menu" onClick={() => setOpen(!open)} className="rounded-lg p-2 lg:hidden">
+        <button ref={btnRef} type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu"
+          onClick={() => setOpen(!open)} className="min-h-11 min-w-11 rounded-lg p-2 lg:hidden">
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
       {open && (
-        <div className="mx-3 mt-2 rounded-2xl glass p-4 animate-rise lg:hidden">
+        <nav id="mobile-menu" aria-label="Mobile" className="mx-3 mt-2 rounded-2xl glass p-4 animate-rise lg:hidden">
           {[...nav, { to: "/services/shopify", label: "Shopify" }, { to: "/services/klaviyo", label: "Klaviyo" }, { to: "/services/ai-animation", label: "AI Animation" }].map((n) => (
             <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-base hover:bg-secondary">
               {n.label}
@@ -71,7 +81,7 @@ export function Header() {
           <div className="mt-3" onClick={() => setOpen(false)}>
             <PrimaryButton to="/consultation">Book a Free Consultation</PrimaryButton>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );
@@ -86,14 +96,14 @@ export function Footer() {
           <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-semibold md:text-4xl">Have a project in mind? Let's talk it through.</h2>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <PrimaryButton to="/consultation">Book a Free Consultation <ArrowUpRight className="h-4 w-4" /></PrimaryButton>
-            <GhostButton href={site.whatsappUrl}><MessageCircle className="h-4 w-4" /> WhatsApp</GhostButton>
+            {hasWhatsApp() ? <GhostButton href={site.whatsappUrl}><MessageCircle className="h-4 w-4" /> WhatsApp</GhostButton> : <GhostButton to="/contact">Contact</GhostButton>}
           </div>
         </div>
         <div className="mt-14 grid gap-10 text-sm md:grid-cols-4">
           <div>
             <Logo />
             <p className="mt-4 text-muted-foreground">{site.title}</p>
-            <a href={`mailto:${site.email}`} className="mt-3 block text-foreground hover:text-primary">{site.email}</a>
+            {hasEmail() && <a href={`mailto:${site.email}`} className="mt-3 block text-foreground hover:text-primary">{site.email}</a>}
           </div>
           <FooterCol title="Services" links={[["/services/shopify", "Shopify Store Design"], ["/services/klaviyo", "Klaviyo Email Marketing"], ["/services/ai-animation", "AI Animation"], ["/process", "My Process"]]} />
           <FooterCol title="Portfolio" links={[["/portfolio/shopify", "Shopify work"], ["/portfolio/klaviyo", "Klaviyo work"], ["/portfolio/ai-animation", "AI Animation work"], ["/testimonials", "Testimonials"]]} />
@@ -102,8 +112,8 @@ export function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
           <span>© {new Date().getFullYear()} {site.name}</span>
           <div className="flex gap-4">
-            {site.profiles.map((p) => <a key={p.label} href={p.url} className="hover:text-foreground">{p.label}</a>)}
-            <a href={site.whatsappUrl} className="hover:text-foreground">WhatsApp</a>
+            {liveProfiles().map((p) => <a key={p.label} href={p.url} target="_blank" rel="noreferrer" className="hover:text-foreground">{p.label}</a>)}
+            {hasWhatsApp() && <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="hover:text-foreground">WhatsApp</a>}
           </div>
         </div>
       </div>
