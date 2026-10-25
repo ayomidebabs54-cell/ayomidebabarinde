@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ConsultationRouteImport } from './routes/consultation'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
@@ -31,6 +34,21 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsultationRoute = ConsultationRouteImport.update({
+  id: '/consultation',
+  path: '/consultation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProcessRoute = ProcessRouteImport.update({
@@ -92,6 +110,9 @@ const WorkSlugRoute = WorkSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/consultation': typeof ConsultationRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
@@ -107,6 +128,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/consultation': typeof ConsultationRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
@@ -123,6 +147,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/consultation': typeof ConsultationRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
@@ -140,6 +167,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/consultation'
+    | '/contact'
+    | '/privacy'
     | '/process'
     | '/testimonials'
     | '/portfolio/ai-animation'
@@ -155,6 +185,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/consultation'
+    | '/contact'
+    | '/privacy'
     | '/process'
     | '/testimonials'
     | '/portfolio/ai-animation'
@@ -170,6 +203,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/consultation'
+    | '/contact'
+    | '/privacy'
     | '/process'
     | '/testimonials'
     | '/portfolio/ai-animation'
@@ -186,6 +222,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ConsultationRoute: typeof ConsultationRoute
+  ContactRoute: typeof ContactRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
   TestimonialsRoute: typeof TestimonialsRoute
   PortfolioAiAnimationRoute: typeof PortfolioAiAnimationRoute
@@ -213,6 +252,27 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consultation': {
+      id: '/consultation'
+      path: '/consultation'
+      fullPath: '/consultation'
+      preLoaderRoute: typeof ConsultationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/process': {
@@ -298,6 +358,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ConsultationRoute: ConsultationRoute,
+  ContactRoute: ContactRoute,
+  PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
   TestimonialsRoute: TestimonialsRoute,
   PortfolioAiAnimationRoute: PortfolioAiAnimationRoute,
