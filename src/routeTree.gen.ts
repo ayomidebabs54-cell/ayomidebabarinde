@@ -13,8 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ConsultationRouteImport } from './routes/consultation'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as OpportunityCheckerRouteImport } from './routes/opportunity-checker'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
+import { Route as ProjectPlannerRouteImport } from './routes/project-planner'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
 import { Route as PortfolioAiAnimationRouteImport } from './routes/portfolio.ai-animation'
@@ -46,6 +49,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpportunityCheckerRoute = OpportunityCheckerRouteImport.update({
+  id: '/opportunity-checker',
+  path: '/opportunity-checker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -54,6 +62,16 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const ProcessRoute = ProcessRouteImport.update({
   id: '/process',
   path: '/process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectPlannerRoute = ProjectPlannerRouteImport.update({
+  id: '/project-planner',
+  path: '/project-planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TestimonialsRoute = TestimonialsRouteImport.update({
@@ -112,8 +130,11 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
+  '/opportunity-checker': typeof OpportunityCheckerRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
+  '/project-planner': typeof ProjectPlannerRoute
+  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
@@ -130,8 +151,11 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
+  '/opportunity-checker': typeof OpportunityCheckerRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
+  '/project-planner': typeof ProjectPlannerRoute
+  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
@@ -149,8 +173,11 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
+  '/opportunity-checker': typeof OpportunityCheckerRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
+  '/project-planner': typeof ProjectPlannerRoute
+  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
@@ -169,8 +196,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/consultation'
     | '/contact'
+    | '/opportunity-checker'
     | '/privacy'
     | '/process'
+    | '/project-planner'
+    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
@@ -187,8 +217,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/consultation'
     | '/contact'
+    | '/opportunity-checker'
     | '/privacy'
     | '/process'
+    | '/project-planner'
+    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
@@ -205,8 +238,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/consultation'
     | '/contact'
+    | '/opportunity-checker'
     | '/privacy'
     | '/process'
+    | '/project-planner'
+    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
@@ -224,8 +260,11 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ConsultationRoute: typeof ConsultationRoute
   ContactRoute: typeof ContactRoute
+  OpportunityCheckerRoute: typeof OpportunityCheckerRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
+  ProjectPlannerRoute: typeof ProjectPlannerRoute
+  ResourcesRoute: typeof ResourcesRoute
   TestimonialsRoute: typeof TestimonialsRoute
   PortfolioAiAnimationRoute: typeof PortfolioAiAnimationRoute
   PortfolioKlaviyoRoute: typeof PortfolioKlaviyoRoute
@@ -268,6 +307,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/opportunity-checker': {
+      id: '/opportunity-checker'
+      path: '/opportunity-checker'
+      fullPath: '/opportunity-checker'
+      preLoaderRoute: typeof OpportunityCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -280,6 +326,20 @@ declare module '@tanstack/react-router' {
       path: '/process'
       fullPath: '/process'
       preLoaderRoute: typeof ProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/project-planner': {
+      id: '/project-planner'
+      path: '/project-planner'
+      fullPath: '/project-planner'
+      preLoaderRoute: typeof ProjectPlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/testimonials': {
@@ -360,8 +420,11 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ConsultationRoute: ConsultationRoute,
   ContactRoute: ContactRoute,
+  OpportunityCheckerRoute: OpportunityCheckerRoute,
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
+  ProjectPlannerRoute: ProjectPlannerRoute,
+  ResourcesRoute: ResourcesRoute,
   TestimonialsRoute: TestimonialsRoute,
   PortfolioAiAnimationRoute: PortfolioAiAnimationRoute,
   PortfolioKlaviyoRoute: PortfolioKlaviyoRoute,
