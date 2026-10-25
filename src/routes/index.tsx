@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-export const processSteps: [string, string][] = [
+const processSteps: [string, string][] = [
   ["Discover", "Understand the business, audience, objectives and existing challenges."],
   ["Analyze", "Review relevant assets, customer journeys, store experiences or marketing systems."],
   ["Plan", "Define the approach, scope, deliverables and priorities."],
