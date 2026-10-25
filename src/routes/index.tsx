@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import portrait from "@/assets/portrait.jpg.asset.json";
 import ambient from "@/assets/ambient.jpg";
-import { site, services } from "@/config/site";
+import { site, services, hasWhatsApp } from "@/config/site";
 import { categoryMeta } from "@/data/projects";
 import { PrimaryButton, GhostButton, Section, FeaturedGrid, Testimonials, seo } from "@/components/site";
 
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-export const processSteps: [string, string][] = [
+const processSteps: [string, string][] = [
   ["Discover", "Understand the business, audience, objectives and existing challenges."],
   ["Analyze", "Review relevant assets, customer journeys, store experiences or marketing systems."],
   ["Plan", "Define the approach, scope, deliverables and priorities."],
@@ -45,9 +45,9 @@ function Home() {
             <div className="mt-9 flex flex-wrap gap-3">
               <PrimaryButton to="/consultation">Book a Free Consultation <ArrowUpRight className="h-4 w-4" /></PrimaryButton>
               <GhostButton to="/portfolio">Explore My Work</GhostButton>
-              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-3 text-sm text-muted-foreground hover:text-foreground">
+              {hasWhatsApp() && <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-3 text-sm text-muted-foreground hover:text-foreground">
                 <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
-              </a>
+              </a>}
             </div>
             <div className="mt-12 flex flex-wrap gap-2">
               {services.map((s) => (

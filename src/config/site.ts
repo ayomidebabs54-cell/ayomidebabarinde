@@ -1,10 +1,12 @@
 // Central place to update personal details. Replace every [PLACEHOLDER] with your real info.
+// Placeholders still to fill in: whatsappUrl, bookingUrl, email, profiles.
+// Unconfigured values are hidden automatically (see isConfigured below).
 export const site = {
   name: "Ayomide Babs",
   initials: "AB",
   title: "Shopify Specialist | Klaviyo Email Marketing Expert | AI Animation Creator",
-  whatsappUrl: "https://wa.me/0000000000", // [MY_WHATSAPP_URL]
-  bookingUrl: "/consultation", // [MY_BOOKING_URL] — swap for Calendly etc.
+  whatsappUrl: "https://wa.me/0000000000", // [MY_WHATSAPP_URL] e.g. https://wa.me/2348000000000
+  bookingUrl: "", // [MY_BOOKING_URL] e.g. https://calendly.com/you/30min — leave "" to show the inquiry form
   email: "hello@example.com", // [MY_EMAIL]
   profiles: [
     { label: "LinkedIn", url: "#" }, // [MY_PROFILE_LINKS]
@@ -12,6 +14,21 @@ export const site = {
     { label: "Instagram", url: "#" },
   ],
 };
+
+/** False for empty strings, "#", example.com emails or the wa.me placeholder number. */
+export function isConfigured(value: string | undefined | null): boolean {
+  if (!value) return false;
+  const v = value.trim().toLowerCase();
+  if (v === "" || v === "#") return false;
+  if (v.endsWith("@example.com") || v.includes("example.com")) return false;
+  if (v.includes("wa.me/0000000000")) return false;
+  return true;
+}
+
+export const hasWhatsApp = () => isConfigured(site.whatsappUrl);
+export const hasEmail = () => isConfigured(site.email);
+export const hasBooking = () => isConfigured(site.bookingUrl) && /^https?:\/\//.test(site.bookingUrl);
+export const liveProfiles = () => site.profiles.filter((p) => isConfigured(p.url));
 
 export const services = [
   {

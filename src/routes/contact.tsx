@@ -1,0 +1,45 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Mail, MessageCircle } from "lucide-react";
+import { PageHero, Section, seo } from "@/components/site";
+import { InquiryForm } from "@/components/inquiry-form";
+import { site, hasEmail, hasWhatsApp, liveProfiles } from "@/config/site";
+
+export const Route = createFileRoute("/contact")({
+  head: () => seo("Contact Ayomide Babs — Shopify, Klaviyo & AI Animation", "Send a project inquiry by email or WhatsApp for Shopify design, Klaviyo email marketing or AI animation work.", "/contact"),
+  component: Contact,
+});
+
+function Contact() {
+  const profiles = liveProfiles();
+  return (
+    <>
+      <PageHero eyebrow="Contact" title="Get in touch." intro="Share a few details about your project and I'll get back to you." />
+      <Section>
+        <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+          <InquiryForm subject="Project inquiry" />
+          <aside className="space-y-4">
+            {hasEmail() && (
+              <a href={`mailto:${site.email}`} className="flex items-center gap-3 rounded-2xl border border-border p-5 hover:border-primary/40">
+                <Mail className="h-5 w-5 text-primary" /><span><span className="block text-xs text-muted-foreground">Email</span>{site.email}</span>
+              </a>
+            )}
+            {/* Add your WhatsApp URL in src/config/site.ts (whatsappUrl) — this link stays hidden until then. */}
+            {hasWhatsApp() && (
+              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-border p-5 hover:border-primary/40">
+                <MessageCircle className="h-5 w-5 text-primary" /><span><span className="block text-xs text-muted-foreground">WhatsApp</span>Message me directly</span>
+              </a>
+            )}
+            {profiles.length > 0 && (
+              <div className="rounded-2xl border border-border p-5">
+                <p className="eyebrow">Elsewhere</p>
+                <ul className="mt-3 space-y-2 text-sm">
+                  {profiles.map((p) => <li key={p.label}><a href={p.url} target="_blank" rel="noreferrer" className="hover:text-primary">{p.label} ↗</a></li>)}
+                </ul>
+              </div>
+            )}
+          </aside>
+        </div>
+      </Section>
+    </>
+  );
+}
