@@ -67,16 +67,28 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
-  ::selection { background: color-mix(in oklab, var(--primary) 40%, transparent); }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 40%, transparent);
+  }
 }
 
 @utility text-gradient {
@@ -85,13 +97,17 @@
   background-clip: text;
   color: transparent;
 }
-@utility bg-gradient-brand { background: var(--gradient-brand); }
+@utility bg-gradient-brand {
+  background: var(--gradient-brand);
+}
 @utility glass {
   background: color-mix(in oklab, var(--card) 60%, transparent);
   backdrop-filter: blur(18px) saturate(140%);
   border: 1px solid var(--border);
 }
-@utility shadow-glow { box-shadow: var(--glow); }
+@utility shadow-glow {
+  box-shadow: var(--glow);
+}
 @utility eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -107,16 +123,65 @@
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
 }
 
-@keyframes float-y { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
-@keyframes spin-slow { to { transform: rotate(360deg) } }
-@keyframes rise { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: none } }
-@utility animate-float { animation: float-y 6s ease-in-out infinite; }
-@utility animate-spin-slow { animation: spin-slow 24s linear infinite; }
-@utility animate-rise { animation: rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@utility animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+@utility animate-spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+@utility animate-rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
 
 @layer base {
-  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; border-radius: 6px; }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+@media (min-width: 768px) {
+  .portfolio-editorial > :first-child {
+    grid-column: 1 / -1;
+  }
+  .portfolio-editorial > :first-child h3 {
+    font-size: 1.5rem;
+  }
+}
+.portfolio-editorial h3 {
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
