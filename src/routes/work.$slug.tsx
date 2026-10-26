@@ -55,7 +55,7 @@ function CaseStudy() {
     [
       "My approach",
       p.approach ??
-        `This brief proposes a ${p.deliverables[0].toLowerCase()}, with a consistent brand voice and a clear customer journey. A project-specific design is still in development.`,
+        `This brief proposes a ${p.deliverables[0]?.toLowerCase() ?? "design study"}, with a consistent brand voice and a clear customer journey. A project-specific design is still in development.`,
     ],
     [
       "Implementation & quality checks",

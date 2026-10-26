@@ -201,7 +201,7 @@ function Home() {
                 {categoryMeta[s.key].label}
               </p>
               <ul className="mt-4 space-y-3 text-sm">
-                {problems[s.key].map((p) => (
+                {(problems[s.key] ?? []).map((p) => (
                   <li key={p} className="border-t border-border pt-3">
                     {p}
                   </li>

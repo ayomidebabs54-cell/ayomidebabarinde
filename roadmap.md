@@ -1,8 +1,9 @@
 # Roadmap
-- [ ] Portfolio update: curated homepage and editorial portfolio browsing
-- [ ] Portfolio update: original project-specific previews and honest asset backlog
-- [ ] Portfolio update: richer project details and credible client experiences
-- [ ] Portfolio update: authenticity tests, page links, image loading, desktop/mobile checks
+- [x] Portfolio update: curated homepage and editorial portfolio browsing
+- [x] Portfolio update: five project-specific previews and honest asset backlog
+- [x] Portfolio update: richer project details and credible client experiences
+- [x] Portfolio update: 10 passing tests; filters, detail links, image loading and mobile overflow checked
+- [ ] Remaining visual polish and screenshot recheck: credits unavailable; 145 briefs still await project-specific visuals
 - [ ] Remaining pages: opportunity-checker, project-planner, resources
 - [ ] Batch 1: consultation, contact, privacy routes
 - [ ] Batch 1: InquiryForm upgrade (labels, zod, aria, service follow-ups, copy fallback)
