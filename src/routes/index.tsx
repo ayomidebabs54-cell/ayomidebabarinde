@@ -121,9 +121,9 @@ function Home() {
         </ol>
       </Section>
 
-      <Section eyebrow="Featured work" title="Selected projects" intro="A mix of concept and demo work across all three services — each one is labeled.">
+      <Section eyebrow="Featured work" title="Selected projects" intro="Storefront design, lifecycle email and creative direction. A curated selection of original concept visualizations — not commissioned client work.">
         <FeaturedGrid />
-        <div className="mt-10"><GhostButton to="/portfolio">View all 150 projects</GhostButton></div>
+        <div className="mt-10"><GhostButton to="/portfolio">View All Projects <ArrowUpRight className="h-4 w-4" /></GhostButton></div>
       </Section>
 
       <Testimonials />

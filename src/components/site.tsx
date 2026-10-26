@@ -3,7 +3,8 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrowUpRight, Menu, X, MessageCircle, Search } from "lucide-react";
 import { site, services, hasWhatsApp, hasEmail, liveProfiles } from "@/config/site";
 import { projects, categoryMeta, industries, type Category, type Project } from "@/data/projects";
-import { testimonials } from "@/data/testimonials";
+import { testimonials, illustrativeTestimonials, canPublishTestimonial } from "@/data/testimonials";
+import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/services", label: "Services" },
@@ -162,24 +163,19 @@ export function TypeBadge({ type }: { type: Project["type"] }) {
   return <span className={`rounded-full border bg-background/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider backdrop-blur ${tone}`}>{type}</span>;
 }
 
-const hue = ["", "hue-rotate-15", "hue-rotate-30", "-hue-rotate-15", "-hue-rotate-30", "saturate-150", "brightness-90"];
-
 export function ProjectCard({ p }: { p: Project }) {
   const m = categoryMeta[p.category];
   return (
-    <Link to="/work/$slug" params={{ slug: p.slug }} className="group block overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1 hover:border-primary/40">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <Link to="/work/$slug" params={{ slug: p.slug }} className="group block min-w-0">
+      {p.visualReady && <div className="relative aspect-[3/2] overflow-hidden rounded-lg border border-border bg-card">
         <img src={p.image} alt={p.title} loading="lazy" width={1200} height={800}
-          className={`h-full w-full object-cover transition duration-700 group-hover:scale-105 ${hue[p.order % hue.length]}`}
-          style={{ objectPosition: `${(p.order * 17) % 100}% ${(p.order * 29) % 100}%` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
-        <div className="absolute left-3 top-3"><TypeBadge type={p.type} /></div>
-        <span className="absolute bottom-3 right-4 font-mono text-xs text-muted-foreground">#{String(p.order + 1).padStart(2, "0")}</span>
-      </div>
-      <div className="p-5">
+          className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.015]" />
+      </div>}
+      <div className={p.visualReady ? "pt-5 pb-3" : "border-t border-border py-5"}>
+        <div className="mb-3 flex flex-wrap items-center gap-2"><TypeBadge type={p.type} />{!p.visualReady && <span className="text-xs text-muted-foreground">Design brief · visual in development</span>}{p.visualReady && p.category === "animation" && <span className="text-xs text-muted-foreground">Static style frame</span>}</div>
         <p className={`font-mono text-[11px] uppercase tracking-wider ${m.color}`}>{m.label} · {p.industry}</p>
-        <h3 className="mt-2 flex items-start justify-between gap-2 text-base font-semibold">
-          {p.title}<ArrowUpRight className="h-4 w-4 shrink-0 opacity-0 transition group-hover:opacity-100" />
+        <h3 className="mt-2 flex items-start justify-between gap-4 text-base font-semibold md:text-lg">
+          {p.title}<ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition group-hover:text-primary" />
         </h3>
         <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{p.description}</p>
       </div>
@@ -199,27 +195,27 @@ export function PortfolioBrowser({ initialCategory }: { initialCategory?: Catego
     if (q) { const s = q.toLowerCase(); l = l.filter((p) => (p.title + p.description + p.tags.join(" ")).toLowerCase().includes(s)); }
     if (sort === "az") l = [...l].sort((a, b) => a.title.localeCompare(b.title));
     else if (sort === "type") l = [...l].sort((a, b) => a.type.localeCompare(b.type));
-    else l = [...l].sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order);
+    else l = [...l].sort((a, b) => Number(b.visualReady) - Number(a.visualReady) || a.order - b.order);
     return l;
   }, [cat, industry, q, sort]);
 
   const sel = "rounded-full border border-border bg-secondary/50 px-4 py-2.5 text-sm outline-none focus:border-primary";
   return (
     <div>
-      <div className="flex flex-wrap gap-2">
+      <div role="group" aria-label="Project category" className="flex flex-wrap gap-2 border-b border-border pb-5">
         {(["all", "shopify", "klaviyo", "animation"] as const).map((c) => (
-          <button key={c} onClick={() => { setCat(c); setLimit(12); }}
-            className={`rounded-full px-4 py-2 text-sm transition ${cat === c ? "bg-gradient-brand text-primary-foreground" : "border border-border text-muted-foreground hover:text-foreground"}`}>
-            {c === "all" ? "All work" : categoryMeta[c].label}
-          </button>
+          <Button key={c} aria-pressed={cat === c} variant={cat === c ? "secondary" : "ghost"} onClick={() => { setCat(c); setLimit(12); }}
+            className={cat === c ? "text-primary" : "text-muted-foreground"}>
+            {c === "all" ? "All Projects" : c === "shopify" ? "Shopify Store Design" : c === "klaviyo" ? "Klaviyo Email Marketing" : "AI Animation"}
+          </Button>
         ))}
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
         <label className="relative flex-1 min-w-56">
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search projects…" className={`${sel} w-full pl-10`} />
+          <input aria-label="Search projects" value={q} onChange={(e) => { setQ(e.target.value); setLimit(12); }} placeholder="Search projects…" className={`${sel} w-full pl-10`} />
         </label>
-        <select value={industry} onChange={(e) => setIndustry(e.target.value)} className={sel} aria-label="Industry">
+        <select value={industry} onChange={(e) => { setIndustry(e.target.value); setLimit(12); }} className={sel} aria-label="Industry">
           <option value="all">All industries</option>
           {industries.map((i) => <option key={i}>{i}</option>)}
         </select>
@@ -229,14 +225,19 @@ export function PortfolioBrowser({ initialCategory }: { initialCategory?: Catego
           <option value="type">By project type</option>
         </select>
       </div>
-      <p className="mt-6 font-mono text-xs text-muted-foreground">{list.length} projects · concept and demo work is clearly labeled</p>
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {list.slice(0, limit).map((p) => <ProjectCard key={p.slug} p={p} />)}
+      <p aria-live="polite" className="mt-6 font-mono text-xs text-muted-foreground">{list.length} projects · {list.filter((p) => p.visualReady).length} visual studies · {list.filter((p) => !p.visualReady).length} design briefs</p>
+      <div className="portfolio-editorial mt-8 grid gap-x-8 gap-y-10 md:grid-cols-2">
+        {list.slice(0, limit).filter((p) => p.visualReady).map((p) => <ProjectCard key={p.slug} p={p} />)}
       </div>
+      {list.slice(0, limit).some((p) => !p.visualReady) && <div className="mt-14">
+        <h3 className="text-xl font-semibold">The concept notebook</h3>
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">Early ideas and scoped design briefs. These have not yet been developed into project-specific visual studies.</p>
+        <div className="mt-6 grid gap-x-8 md:grid-cols-2">{list.slice(0, limit).filter((p) => !p.visualReady).map((p) => <ProjectCard key={p.slug} p={p} />)}</div>
+      </div>}
       {list.length === 0 && <p className="py-16 text-center text-muted-foreground">No projects match those filters.</p>}
       {limit < list.length && (
         <div className="mt-10 text-center">
-          <button onClick={() => setLimit(limit + 12)} className="rounded-full border border-border px-6 py-3 text-sm hover:border-primary/50">Load more</button>
+          <Button variant="outline" onClick={() => setLimit(limit + 12)}>Load more projects</Button>
         </div>
       )}
     </div>
@@ -244,40 +245,42 @@ export function PortfolioBrowser({ initialCategory }: { initialCategory?: Catego
 }
 
 export function Testimonials({ service }: { service?: Category }) {
-  const list = testimonials.filter((t) => !service || t.service === service);
+  const real = testimonials.filter((t) => canPublishTestimonial(t) && (!service || t.service === service));
+  const list = real.length ? real : illustrativeTestimonials.filter((t) => !service || t.service === service);
   return (
-    <Section eyebrow="Client Experiences" title="What It's Like Working With Me">
-      {list.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border p-10 text-center">
-          <p className="text-lg">Client stories are on their way.</p>
-          <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
-            I only publish real feedback that clients have approved — no invented reviews. In the meantime, feel free to ask for references during a consultation.
-          </p>
-        </div>
-      ) : (
+    <Section eyebrow="Client Experiences" title={real.length ? "In their own words" : "A thoughtful working relationship"} intro={real.length ? "Verified feedback, shared with permission." : "No verified client reviews are available yet. The following illustrative samples are not client endorsements."}>
         <div className="grid gap-5 md:grid-cols-3">
           {list.map((t) => (
-            <figure key={t.name + t.text} className="rounded-2xl glass p-6">
-              <blockquote className="text-sm leading-relaxed">“{t.text}”</blockquote>
-              <figcaption className="mt-5 text-sm"><b>{t.name}</b>{t.business && <span className="text-muted-foreground"> · {t.business}</span>}</figcaption>
+            <figure key={t.service + t.text} className="flex flex-col rounded-lg border border-border bg-card p-6 transition hover:border-primary/30 md:p-7">
+              <p className={`font-mono text-xs uppercase ${categoryMeta[t.service].color}`}>{categoryMeta[t.service].label}</p>
+              <blockquote className="mt-6 flex-1 text-base leading-relaxed">“{t.text}”</blockquote>
+              <figcaption className="mt-7 border-t border-border pt-4 text-sm">
+                {t.illustrative ? <span className="block font-medium text-primary">Illustrative sample — not a real client review</span> : <><b>{t.name}</b>{t.business && <span className="text-muted-foreground"> · {t.business}</span>}{t.projectSlug && projects.some((p) => p.slug === t.projectSlug) && <Link to="/work/$slug" params={{ slug: t.projectSlug }} className="mt-2 block text-primary">Related project ↗</Link>}</>}
+              </figcaption>
             </figure>
           ))}
         </div>
-      )}
+        {!real.length && <div className="mt-12 border-t border-border pt-8">
+          <h3 className="text-xl font-semibold">What You Can Expect When Working With Me</h3>
+          <ul className="mt-6 grid gap-x-8 gap-y-4 text-sm text-muted-foreground sm:grid-cols-2 lg:grid-cols-3">
+            {["Clear communication", "A defined project scope", "A thoughtful design or marketing process", "Regular progress updates", "Attention to detail", "Testing and quality assurance", "Agreed revisions and deliverables"].map((item) => <li key={item} className="flex gap-3"><span className="text-primary" aria-hidden="true">↗</span>{item}</li>)}
+          </ul>
+        </div>}
     </Section>
   );
 }
 
 export function FeaturedGrid({ category }: { category?: Category }) {
-  const list = projects.filter((p) => p.featured && (!category || p.category === category)).slice(0, category ? 3 : 9);
-  return <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{list.map((p) => <ProjectCard key={p.slug} p={p} />)}</div>;
+  const list = projects.filter((p) => p.featured && p.visualReady && (!category || p.category === category));
+  return <div className="portfolio-editorial grid gap-x-8 gap-y-10 md:grid-cols-2">{list.map((p) => <ProjectCard key={p.slug} p={p} />)}</div>;
 }
 
 export function ServicePage(props: {
   category: Category; eyebrow: string; title: ReactNode; intro: string;
   offers: [string, string][]; problems: string[]; steps: string[]; image: string;
 }) {
-  const svc = services.find((s) => s.key === props.category)!;
+  const svc = services.find((s) => s.key === props.category);
+  if (!svc) return null;
   return (
     <>
       <PageHero eyebrow={props.eyebrow} title={props.title} intro={props.intro}>
