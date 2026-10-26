@@ -36,7 +36,7 @@ const followUps: Record<ServiceOption, { name: string; label: string; options?: 
   "Not sure yet": [],
 };
 
-function Field({ id, label, error, children }: { id: string; label: string; error?: string; children: ReactNode }) {
+function Field({ id, label, error, children }: { id: string; label: string; error?: string | undefined; children: ReactNode }) {
   return (
     <div>
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium">{label}</label>
@@ -91,10 +91,10 @@ export function InquiryForm({ subject, prefill = "", defaultService = "Not sure 
   return (
     <form onSubmit={submit} noValidate className="space-y-5 rounded-3xl glass p-6 md:p-8">
       <div className="grid gap-5 md:grid-cols-2">
-        <Field id={id("name")} label="Your name *" error={errors.name}>
+        <Field id={id("name")} label="Your name *" error={errors["name"]}>
           <input id={id("name")} name="name" autoComplete="name" className={field} maxLength={100} {...aria("name")} />
         </Field>
-        <Field id={id("email")} label="Email *" error={errors.email}>
+        <Field id={id("email")} label="Email *" error={errors["email"]}>
           <input id={id("email")} name="email" type="email" autoComplete="email" className={field} maxLength={255} {...aria("email")} />
         </Field>
       </div>
@@ -142,7 +142,7 @@ export function InquiryForm({ subject, prefill = "", defaultService = "Not sure 
           </div>
         </fieldset>
       </div>
-      <Field id={id("challenge")} label="Main challenge *" error={errors.challenge}>
+      <Field id={id("challenge")} label="Main challenge *" error={errors["challenge"]}>
         <textarea id={id("challenge")} name="challenge" rows={3} defaultValue={prefill} className={field} maxLength={1000} {...aria("challenge")} />
       </Field>
       <Field id={id("message")} label="Anything else? (optional)">

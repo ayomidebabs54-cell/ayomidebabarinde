@@ -1031,9 +1031,7 @@ function build(cat: Category, rows: Row[]): Project[] {
       image: presentation?.image ?? categoryMeta[cat].image,
       order: i,
       visualReady: Boolean(presentation),
-      visualCaption: presentation?.caption,
-      approach: presentation?.approach,
-      lesson: presentation?.lesson,
+      ...(presentation ? { visualCaption: presentation.caption, approach: presentation.approach, lesson: presentation.lesson } : {}),
     };
   });
 }
