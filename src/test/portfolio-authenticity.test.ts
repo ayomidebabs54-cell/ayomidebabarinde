@@ -1,8 +1,19 @@
 import { describe, expect, it } from "vitest";
 import { projects, visualBacklog } from "@/data/projects";
-import { canPublishTestimonial, illustrativeTestimonials, type Testimonial } from "@/data/testimonials";
+import {
+  canPublishTestimonial,
+  illustrativeTestimonials,
+  type Testimonial,
+} from "@/data/testimonials";
 
-const approved: Testimonial = { name: "Test fixture", service: "shopify", text: "Test fixture", permissionStatus: "granted", verificationStatus: "verified", publicationStatus: "published" };
+const approved: Testimonial = {
+  name: "Test fixture",
+  service: "shopify",
+  text: "Test fixture",
+  permissionStatus: "granted",
+  verificationStatus: "verified",
+  publicationStatus: "published",
+};
 
 describe("Testimonial publication rules", () => {
   it("requires permission to publish", () => {
@@ -40,6 +51,8 @@ describe("Project authenticity", () => {
     const featured = projects.filter((p) => p.featured);
     expect(new Set(featured.map((p) => p.image)).size).toBe(5);
     expect(featured.every((p) => p.type === "Concept Project")).toBe(true);
-    expect(featured.find((p) => p.category === "animation")?.visualCaption).toContain("Static AI-assisted style frame");
+    expect(featured.find((p) => p.category === "animation")?.visualCaption).toContain(
+      "Static AI-assisted style frame",
+    );
   });
 });
