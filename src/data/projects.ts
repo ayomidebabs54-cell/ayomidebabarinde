@@ -1,6 +1,10 @@
 import shopifyImg from "@/assets/shopify.jpg";
 import klaviyoImg from "@/assets/klaviyo.jpg";
 import animationImg from "@/assets/animation.jpg";
+import noirPreview from "@/assets/noir-thread-concept.jpg";
+import lumenPreview from "@/assets/lumen-skin-concept.jpg";
+import welcomePreview from "@/assets/welcome-series-concept.jpg";
+import checkoutPreview from "@/assets/checkout-series-concept.jpg";
 
 export type Category = "shopify" | "klaviyo" | "animation";
 export type ProjectType = "Client Project" | "Concept Project" | "Demo Project" | "Personal Project";
@@ -20,6 +24,10 @@ export interface Project {
   published: boolean;
   image: string;
   order: number;
+  visualReady: boolean;
+  visualCaption?: string;
+  approach?: string;
+  lesson?: string;
 }
 
 export const categoryMeta: Record<Category, { label: string; image: string; color: string; route: string }> = {
@@ -210,8 +218,44 @@ const deliverablesBy: Record<Category, (r: Row) => string[]> = {
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
+// Only project-specific, inspectable visuals qualify for the curated showcase.
+const presentations: Record<string, { image: string; caption: string; approach: string; lesson: string }> = {
+  "shopify-noir-thread-homepage": {
+    image: noirPreview,
+    caption: "Original concept visualization · desktop homepage, merchandising grid and mobile layout. Fictional brand; not a live Shopify store.",
+    approach: "The composition gives one seasonal story room to breathe, then introduces a small essentials collection. Consistent product framing and a quieter navigation keep the shopping path visible on desktop and mobile.",
+    lesson: "Editorial imagery works best when it leads into clear product discovery rather than competing with it. A production version would still need real catalog data, accessible interactions and checkout testing.",
+  },
+  "shopify-lumen-skin-pdp": {
+    image: lumenPreview,
+    caption: "Original concept visualization · serum product page and mobile routine layout. Fictional products and prices for design purposes only.",
+    approach: "Product photography and the purchase decision sit side by side. Ingredients, usage and the next routine step are separated into scannable layers so the page can support both quick shopping and closer inspection.",
+    lesson: "A clear routine can explain a product without overwhelming the purchase area. Ingredient claims, product copy and accessibility would require review before a real launch.",
+  },
+  "klaviyo-five-step-welcome-series": {
+    image: welcomePreview,
+    caption: "Original concept visualization · two email layouts and a five-email lifecycle map. Proposed timing; not a deployed Klaviyo flow.",
+    approach: "The proposed sequence moves from introduction to brand story, bestsellers, fit guidance and continued connection. A consistent email header, product treatment and single primary action tie the messages together.",
+    lesson: "Each message should have a distinct job. A real implementation would need consent checks, purchaser exclusions, deliverability testing and timing informed by the audience.",
+  },
+  "klaviyo-abandoned-checkout-trio": {
+    image: checkoutPreview,
+    caption: "Original concept visualization · saved-bag and routine-guidance emails with a three-step recovery map. Not a live campaign.",
+    approach: "The first message returns shoppers to their saved bag, the second addresses routine questions, and a final reminder closes the proposed sequence. The map includes a stop-after-purchase condition rather than relying on repeated urgency.",
+    lesson: "Recovery messaging can offer reassurance rather than constant discounting. A live account would need consent, event validation, suppression rules and rendering tests before activation.",
+  },
+  "animation-liquid-chrome-perfume-reveal": {
+    image: animationImg,
+    caption: "Static AI-assisted style frame · liquid chrome perfume reveal concept. No finished animation or video is available.",
+    approach: "The style frame explores a clear bottle silhouette against liquid chrome, using reflections and cool highlights to establish a product-reveal direction. It is a visual starting point, not evidence of a completed motion sequence.",
+    lesson: "Strong material contrast can make a product reveal distinctive. Motion continuity, bottle identity and format adaptation would need to be developed and tested in a finished film.",
+  },
+};
+
 function build(cat: Category, rows: Row[]): Project[] {
-  return rows.map((r, i) => ({
+  return rows.map((r, i) => {
+    const presentation = presentations[`${cat}-${slugify(r[0])}`];
+    return ({
     slug: `${cat}-${slugify(r[0])}`,
     title: r[0],
     category: cat,
@@ -222,11 +266,16 @@ function build(cat: Category, rows: Row[]): Project[] {
     deliverables: deliverablesBy[cat](r),
     tools: toolsBy[cat],
     tags: [categoryMeta[cat].label, r[1], r[3]],
-    featured: i < 3,
+    featured: Boolean(presentation),
     published: true,
-    image: categoryMeta[cat].image,
+    image: presentation?.image ?? categoryMeta[cat].image,
     order: i,
-  }));
+    visualReady: Boolean(presentation),
+    visualCaption: presentation?.caption,
+    approach: presentation?.approach,
+    lesson: presentation?.lesson,
+  });
+  });
 }
 
 export const projects: Project[] = [
@@ -236,6 +285,7 @@ export const projects: Project[] = [
 ].filter((p) => p.published);
 
 export const industries = Array.from(new Set(projects.map((p) => p.industry))).sort();
+export const visualBacklog = projects.filter((p) => !p.visualReady).sort((a, b) => a.order - b.order);
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 export const related = (p: Project) =>
   projects.filter((x) => x.slug !== p.slug && (x.category === p.category && x.industry === p.industry)).concat(
