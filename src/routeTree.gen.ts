@@ -22,6 +22,8 @@ import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
 import { Route as PortfolioAiAnimationRouteImport } from './routes/portfolio.ai-animation'
 import { Route as PortfolioKlaviyoRouteImport } from './routes/portfolio.klaviyo'
 import { Route as PortfolioShopifyRouteImport } from './routes/portfolio.shopify'
+import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesAiAnimationRouteImport } from './routes/services.ai-animation'
 import { Route as ServicesKlaviyoRouteImport } from './routes/services.klaviyo'
@@ -93,6 +95,16 @@ const PortfolioShopifyRoute = PortfolioShopifyRouteImport.update({
   path: '/portfolio/shopify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
+  id: '/resources/',
+  path: '/resources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/resources/$slug',
+  path: '/resources/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
@@ -132,11 +144,13 @@ export interface FileRoutesByFullPath {
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
   '/portfolio/shopify': typeof PortfolioShopifyRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
   '/work/$slug': typeof WorkSlugRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/resources/': typeof ResourcesIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -152,11 +166,13 @@ export interface FileRoutesByTo {
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
   '/portfolio/shopify': typeof PortfolioShopifyRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
   '/work/$slug': typeof WorkSlugRoute
   '/portfolio': typeof PortfolioIndexRoute
+  '/resources': typeof ResourcesIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
@@ -173,11 +189,13 @@ export interface FileRoutesById {
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
   '/portfolio/shopify': typeof PortfolioShopifyRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
   '/work/$slug': typeof WorkSlugRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/resources/': typeof ResourcesIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -195,11 +213,13 @@ export interface FileRouteTypes {
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
     | '/portfolio/shopify'
+    | '/resources/$slug'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
     | '/work/$slug'
     | '/portfolio/'
+    | '/resources/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -215,11 +235,13 @@ export interface FileRouteTypes {
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
     | '/portfolio/shopify'
+    | '/resources/$slug'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
     | '/work/$slug'
     | '/portfolio'
+    | '/resources'
     | '/services'
   id:
     | '__root__'
@@ -235,11 +257,13 @@ export interface FileRouteTypes {
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
     | '/portfolio/shopify'
+    | '/resources/$slug'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
     | '/work/$slug'
     | '/portfolio/'
+    | '/resources/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
@@ -256,11 +280,13 @@ export interface RootRouteChildren {
   PortfolioAiAnimationRoute: typeof PortfolioAiAnimationRoute
   PortfolioKlaviyoRoute: typeof PortfolioKlaviyoRoute
   PortfolioShopifyRoute: typeof PortfolioShopifyRoute
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
   ServicesAiAnimationRoute: typeof ServicesAiAnimationRoute
   ServicesKlaviyoRoute: typeof ServicesKlaviyoRoute
   ServicesShopifyRoute: typeof ServicesShopifyRoute
   WorkSlugRoute: typeof WorkSlugRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -357,6 +383,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioShopifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/': {
+      id: '/resources/'
+      path: '/resources'
+      fullPath: '/resources/'
+      preLoaderRoute: typeof ResourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/resources/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/': {
       id: '/services/'
       path: '/services'
@@ -408,11 +448,13 @@ const rootRouteChildren: RootRouteChildren = {
   PortfolioAiAnimationRoute: PortfolioAiAnimationRoute,
   PortfolioKlaviyoRoute: PortfolioKlaviyoRoute,
   PortfolioShopifyRoute: PortfolioShopifyRoute,
+  ResourcesSlugRoute: ResourcesSlugRoute,
   ServicesAiAnimationRoute: ServicesAiAnimationRoute,
   ServicesKlaviyoRoute: ServicesKlaviyoRoute,
   ServicesShopifyRoute: ServicesShopifyRoute,
   WorkSlugRoute: WorkSlugRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
+  ResourcesIndexRoute: ResourcesIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport

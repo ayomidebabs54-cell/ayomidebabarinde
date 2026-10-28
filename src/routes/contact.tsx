@@ -1,22 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { z } from "zod";
+import { serviceFromParam, whatsappWithText } from "@/lib/service-param";
 import { Mail, MessageCircle } from "lucide-react";
 import { PageHero, Section, seo } from "@/components/site";
 import { InquiryForm } from "@/components/inquiry-form";
 import { site, hasEmail, hasWhatsApp, liveProfiles } from "@/config/site";
 
 export const Route = createFileRoute("/contact")({
+  validateSearch: zodValidator(z.object({ service: fallback(z.string(), "").default(""), brief: fallback(z.string(), "").default("") })),
   head: () => seo("Contact Ayomide Babs — Shopify, Klaviyo & AI Animation", "Send a project inquiry by email or WhatsApp for Shopify design, Klaviyo email marketing or AI animation work.", "/contact"),
   component: Contact,
 });
 
 function Contact() {
   const profiles = liveProfiles();
+  const { service, brief } = Route.useSearch();
+  const svc = serviceFromParam(service) ?? "Not sure yet";
+  const safeBrief = brief.slice(0, 1000);
   return (
     <>
       <PageHero eyebrow="Contact" title="Get in touch." intro="Share a few details about your project and I'll get back to you." />
       <Section>
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <InquiryForm subject="Project inquiry" />
+          <InquiryForm key={`${svc}-${safeBrief}`} subject="Project inquiry" defaultService={svc} prefill={safeBrief} />
           <aside className="space-y-4">
             {hasEmail() && (
               <a href={`mailto:${site.email}`} className="flex items-center gap-3 rounded-2xl border border-border p-5 hover:border-primary/40">
@@ -25,7 +32,7 @@ function Contact() {
             )}
             {/* Add your WhatsApp URL in src/config/site.ts (whatsappUrl) — this link stays hidden until then. */}
             {hasWhatsApp() && (
-              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-border p-5 hover:border-primary/40">
+              <a href={whatsappWithText(safeBrief || "Hi Ayomide, I'd like to talk about a project.")} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-border p-5 hover:border-primary/40">
                 <MessageCircle className="h-5 w-5 text-primary" /><span><span className="block text-xs text-muted-foreground">WhatsApp</span>Message me directly</span>
               </a>
             )}

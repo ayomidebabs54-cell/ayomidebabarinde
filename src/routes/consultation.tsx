@@ -1,4 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { z } from "zod";
+import { serviceFromParam } from "@/lib/service-param";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -7,6 +10,7 @@ import { InquiryForm, SERVICE_OPTIONS, type ServiceOption } from "@/components/i
 import { site, hasBooking } from "@/config/site";
 
 export const Route = createFileRoute("/consultation")({
+  validateSearch: zodValidator(z.object({ service: fallback(z.string(), "").default("") })),
   head: () => seo("Book a Free Consultation — Ayomide Babs", "Tell me about your Shopify, Klaviyo or AI animation project and arrange a free, no-obligation consultation.", "/consultation"),
   component: Consultation,
 });
@@ -25,7 +29,7 @@ const faqs: [string, string][] = [
 ];
 
 function Consultation() {
-  const [service, setService] = useState<ServiceOption | null>(null);
+  const [service, setService] = useState<ServiceOption | null>(serviceFromParam(Route.useSearch().service));
   const [objective, setObjective] = useState("");
   const [step, setStep] = useState<1 | 2>(1);
   const booking = hasBooking();
