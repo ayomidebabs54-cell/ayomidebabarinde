@@ -6,8 +6,10 @@ export const SERVICE_PARAM: Record<string, ServiceOption> = {
   klaviyo: "Klaviyo Email Marketing",
   animation: "AI Animation",
 };
-export const serviceFromParam = (v?: string): ServiceOption | null => (v && SERVICE_PARAM[v]) || null;
-export const paramFromService = (s: ServiceOption) => Object.keys(SERVICE_PARAM).find((k) => SERVICE_PARAM[k] === s);
+export const serviceFromParam = (v?: string): ServiceOption | null =>
+  (v && SERVICE_PARAM[v]) || null;
+export const paramFromService = (s: ServiceOption) =>
+  Object.keys(SERVICE_PARAM).find((k) => SERVICE_PARAM[k] === s);
 
 /** Adds prefilled text to the configured WhatsApp URL. The user still presses send. */
 export function whatsappWithText(text: string) {
