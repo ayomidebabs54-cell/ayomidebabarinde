@@ -17,7 +17,6 @@ import { Route as OpportunityCheckerRouteImport } from './routes/opportunity-che
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as ProjectPlannerRouteImport } from './routes/project-planner'
-import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
 import { Route as PortfolioAiAnimationRouteImport } from './routes/portfolio.ai-animation'
@@ -67,11 +66,6 @@ const ProcessRoute = ProcessRouteImport.update({
 const ProjectPlannerRoute = ProjectPlannerRouteImport.update({
   id: '/project-planner',
   path: '/project-planner',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TestimonialsRoute = TestimonialsRouteImport.update({
@@ -134,7 +128,6 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/project-planner': typeof ProjectPlannerRoute
-  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
@@ -155,7 +148,6 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/project-planner': typeof ProjectPlannerRoute
-  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
@@ -177,7 +169,6 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/project-planner': typeof ProjectPlannerRoute
-  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
@@ -200,7 +191,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/project-planner'
-    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
@@ -221,7 +211,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/project-planner'
-    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
@@ -242,7 +231,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/project-planner'
-    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
@@ -264,7 +252,6 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
   ProjectPlannerRoute: typeof ProjectPlannerRoute
-  ResourcesRoute: typeof ResourcesRoute
   TestimonialsRoute: typeof TestimonialsRoute
   PortfolioAiAnimationRoute: typeof PortfolioAiAnimationRoute
   PortfolioKlaviyoRoute: typeof PortfolioKlaviyoRoute
@@ -333,13 +320,6 @@ declare module '@tanstack/react-router' {
       path: '/project-planner'
       fullPath: '/project-planner'
       preLoaderRoute: typeof ProjectPlannerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/testimonials': {
@@ -424,7 +404,6 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
   ProjectPlannerRoute: ProjectPlannerRoute,
-  ResourcesRoute: ResourcesRoute,
   TestimonialsRoute: TestimonialsRoute,
   PortfolioAiAnimationRoute: PortfolioAiAnimationRoute,
   PortfolioKlaviyoRoute: PortfolioKlaviyoRoute,
