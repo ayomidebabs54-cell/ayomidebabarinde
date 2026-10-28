@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
 import { serviceFromParam, whatsappWithText } from "@/lib/service-param";
 import { Mail, MessageCircle } from "lucide-react";
 import { PageHero, Section, seo } from "@/components/site";
@@ -8,7 +6,7 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { site, hasEmail, hasWhatsApp, liveProfiles } from "@/config/site";
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: zodValidator(z.object({ service: fallback(z.string(), "").default(""), brief: fallback(z.string(), "").default("") })),
+  validateSearch: (s: Record<string, unknown>): { service?: string; brief?: string } => ({ service: typeof s.service === "string" ? s.service : undefined, brief: typeof s.brief === "string" ? s.brief : undefined }),
   head: () => seo("Contact Ayomide Babs — Shopify, Klaviyo & AI Animation", "Send a project inquiry by email or WhatsApp for Shopify design, Klaviyo email marketing or AI animation work.", "/contact"),
   component: Contact,
 });
@@ -17,7 +15,7 @@ function Contact() {
   const profiles = liveProfiles();
   const { service, brief } = Route.useSearch();
   const svc = serviceFromParam(service) ?? "Not sure yet";
-  const safeBrief = brief.slice(0, 1000);
+  const safeBrief = (brief ?? "").slice(0, 1000);
   return (
     <>
       <PageHero eyebrow="Contact" title="Get in touch." intro="Share a few details about your project and I'll get back to you." />

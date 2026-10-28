@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
 import { serviceFromParam } from "@/lib/service-param";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
@@ -10,7 +8,7 @@ import { InquiryForm, SERVICE_OPTIONS, type ServiceOption } from "@/components/i
 import { site, hasBooking } from "@/config/site";
 
 export const Route = createFileRoute("/consultation")({
-  validateSearch: zodValidator(z.object({ service: fallback(z.string(), "").default("") })),
+  validateSearch: (s: Record<string, unknown>): { service?: string } => ({ service: typeof s.service === "string" ? s.service : undefined }),
   head: () => seo("Book a Free Consultation — Ayomide Babs", "Tell me about your Shopify, Klaviyo or AI animation project and arrange a free, no-obligation consultation.", "/consultation"),
   component: Consultation,
 });

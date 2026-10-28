@@ -16,7 +16,7 @@ export const Route = createFileRoute("/resources/$slug")({
     <Section>
       <h1 className="text-2xl font-semibold">Guide not found</h1>
       <p className="mt-2 text-muted-foreground">That guide doesn't exist or has moved.</p>
-      <Link to="/resources" search={{ category: "" }} className="mt-4 inline-block text-primary underline">Browse all guides</Link>
+      <Link to="/resources" search={{}} className="mt-4 inline-block text-primary underline">Browse all guides</Link>
     </Section>
   ),
   component: ResourcePage,

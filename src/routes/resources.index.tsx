@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
 import { PageHero, Section, seo } from "@/components/site";
 import { resources, RESOURCE_CATEGORIES } from "@/data/resources";
 
 export const Route = createFileRoute("/resources/")({
-  validateSearch: zodValidator(z.object({ category: fallback(z.string(), "").default("") })),
+  validateSearch: (s: Record<string, unknown>): { category?: string } => ({ category: typeof s.category === "string" ? s.category : undefined }),
   head: () => seo("Resources & Guides — Shopify, Klaviyo, Retention & AI Animation", "Short, practical guides on Shopify store design, Klaviyo email, customer retention and AI animation.", "/resources"),
   component: Resources,
 });
@@ -20,7 +18,7 @@ function Resources() {
       <PageHero eyebrow="Resources" title="Practical guides." intro="Short, plain ideas you can apply to your own brand." />
       <Section>
         <nav aria-label="Filter by category" className="mb-8 flex flex-wrap gap-2">
-          <Link to="/resources" search={{ category: "" }} className={chip(!active)} aria-current={!active ? "page" : undefined}>All</Link>
+          <Link to="/resources" search={{}} className={chip(!active)} aria-current={!active ? "page" : undefined}>All</Link>
           {RESOURCE_CATEGORIES.map((c) => (
             <Link key={c} to="/resources" search={{ category: c }} className={chip(active === c)} aria-current={active === c ? "page" : undefined}>{c}</Link>
           ))}
