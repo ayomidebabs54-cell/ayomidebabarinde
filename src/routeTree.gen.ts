@@ -17,12 +17,13 @@ import { Route as OpportunityCheckerRouteImport } from './routes/opportunity-che
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as ProjectPlannerRouteImport } from './routes/project-planner'
-import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
 import { Route as PortfolioAiAnimationRouteImport } from './routes/portfolio.ai-animation'
 import { Route as PortfolioKlaviyoRouteImport } from './routes/portfolio.klaviyo'
 import { Route as PortfolioShopifyRouteImport } from './routes/portfolio.shopify'
+import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesAiAnimationRouteImport } from './routes/services.ai-animation'
 import { Route as ServicesKlaviyoRouteImport } from './routes/services.klaviyo'
@@ -69,11 +70,6 @@ const ProjectPlannerRoute = ProjectPlannerRouteImport.update({
   path: '/project-planner',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TestimonialsRoute = TestimonialsRouteImport.update({
   id: '/testimonials',
   path: '/testimonials',
@@ -97,6 +93,16 @@ const PortfolioKlaviyoRoute = PortfolioKlaviyoRouteImport.update({
 const PortfolioShopifyRoute = PortfolioShopifyRouteImport.update({
   id: '/portfolio/shopify',
   path: '/portfolio/shopify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
+  id: '/resources/',
+  path: '/resources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/resources/$slug',
+  path: '/resources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
@@ -134,16 +140,17 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/project-planner': typeof ProjectPlannerRoute
-  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
   '/portfolio/shopify': typeof PortfolioShopifyRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
   '/work/$slug': typeof WorkSlugRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/resources/': typeof ResourcesIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -155,16 +162,17 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/project-planner': typeof ProjectPlannerRoute
-  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
   '/portfolio/shopify': typeof PortfolioShopifyRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
   '/work/$slug': typeof WorkSlugRoute
   '/portfolio': typeof PortfolioIndexRoute
+  '/resources': typeof ResourcesIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
@@ -177,16 +185,17 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/project-planner': typeof ProjectPlannerRoute
-  '/resources': typeof ResourcesRoute
   '/testimonials': typeof TestimonialsRoute
   '/portfolio/ai-animation': typeof PortfolioAiAnimationRoute
   '/portfolio/klaviyo': typeof PortfolioKlaviyoRoute
   '/portfolio/shopify': typeof PortfolioShopifyRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/services/ai-animation': typeof ServicesAiAnimationRoute
   '/services/klaviyo': typeof ServicesKlaviyoRoute
   '/services/shopify': typeof ServicesShopifyRoute
   '/work/$slug': typeof WorkSlugRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/resources/': typeof ResourcesIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -200,16 +209,17 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/project-planner'
-    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
     | '/portfolio/shopify'
+    | '/resources/$slug'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
     | '/work/$slug'
     | '/portfolio/'
+    | '/resources/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -221,16 +231,17 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/project-planner'
-    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
     | '/portfolio/shopify'
+    | '/resources/$slug'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
     | '/work/$slug'
     | '/portfolio'
+    | '/resources'
     | '/services'
   id:
     | '__root__'
@@ -242,16 +253,17 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/project-planner'
-    | '/resources'
     | '/testimonials'
     | '/portfolio/ai-animation'
     | '/portfolio/klaviyo'
     | '/portfolio/shopify'
+    | '/resources/$slug'
     | '/services/ai-animation'
     | '/services/klaviyo'
     | '/services/shopify'
     | '/work/$slug'
     | '/portfolio/'
+    | '/resources/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
@@ -264,16 +276,17 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
   ProjectPlannerRoute: typeof ProjectPlannerRoute
-  ResourcesRoute: typeof ResourcesRoute
   TestimonialsRoute: typeof TestimonialsRoute
   PortfolioAiAnimationRoute: typeof PortfolioAiAnimationRoute
   PortfolioKlaviyoRoute: typeof PortfolioKlaviyoRoute
   PortfolioShopifyRoute: typeof PortfolioShopifyRoute
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
   ServicesAiAnimationRoute: typeof ServicesAiAnimationRoute
   ServicesKlaviyoRoute: typeof ServicesKlaviyoRoute
   ServicesShopifyRoute: typeof ServicesShopifyRoute
   WorkSlugRoute: typeof WorkSlugRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -335,13 +348,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectPlannerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/testimonials': {
       id: '/testimonials'
       path: '/testimonials'
@@ -375,6 +381,20 @@ declare module '@tanstack/react-router' {
       path: '/portfolio/shopify'
       fullPath: '/portfolio/shopify'
       preLoaderRoute: typeof PortfolioShopifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/': {
+      id: '/resources/'
+      path: '/resources'
+      fullPath: '/resources/'
+      preLoaderRoute: typeof ResourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/resources/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/': {
@@ -424,16 +444,17 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
   ProjectPlannerRoute: ProjectPlannerRoute,
-  ResourcesRoute: ResourcesRoute,
   TestimonialsRoute: TestimonialsRoute,
   PortfolioAiAnimationRoute: PortfolioAiAnimationRoute,
   PortfolioKlaviyoRoute: PortfolioKlaviyoRoute,
   PortfolioShopifyRoute: PortfolioShopifyRoute,
+  ResourcesSlugRoute: ResourcesSlugRoute,
   ServicesAiAnimationRoute: ServicesAiAnimationRoute,
   ServicesKlaviyoRoute: ServicesKlaviyoRoute,
   ServicesShopifyRoute: ServicesShopifyRoute,
   WorkSlugRoute: WorkSlugRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
+  ResourcesIndexRoute: ResourcesIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
