@@ -2,7 +2,15 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrowUpRight, Menu, X, MessageCircle, Search } from "lucide-react";
 import { site, services, hasWhatsApp, hasEmail, liveProfiles } from "@/config/site";
-import { projects, categoryMeta, industries, type Category, type Project } from "@/data/projects";
+import {
+  projects,
+  categoryMeta,
+  serviceMeta,
+  industries,
+  type Category,
+  type ServiceKey,
+  type Project,
+} from "@/data/projects";
 import { testimonials, illustrativeTestimonials, canPublishTestimonial } from "@/data/testimonials";
 import { Button } from "@/components/ui/button";
 
@@ -400,7 +408,7 @@ export function PortfolioBrowser({ initialCategory }: { initialCategory?: Catego
         aria-label="Project category"
         className="flex flex-wrap gap-2 border-b border-border pb-5"
       >
-        {(["all", "shopify", "klaviyo", "animation"] as const).map((c) => (
+        {(["all", "klaviyo", "animation"] as const).map((c) => (
           <Button
             key={c}
             aria-pressed={cat === c}
@@ -413,11 +421,9 @@ export function PortfolioBrowser({ initialCategory }: { initialCategory?: Catego
           >
             {c === "all"
               ? "All Projects"
-              : c === "shopify"
-                ? "Shopify Store Design"
-                : c === "klaviyo"
-                  ? "Klaviyo Email Marketing"
-                  : "AI Animation"}
+              : c === "klaviyo"
+                ? "Klaviyo Email Marketing"
+                : "AI Animation"}
           </Button>
         ))}
       </div>
@@ -503,7 +509,7 @@ export function PortfolioBrowser({ initialCategory }: { initialCategory?: Catego
   );
 }
 
-export function Testimonials({ service }: { service?: Category }) {
+export function Testimonials({ service }: { service?: ServiceKey }) {
   const real = testimonials.filter(
     (t) => canPublishTestimonial(t) && (!service || t.service === service),
   );
@@ -526,8 +532,8 @@ export function Testimonials({ service }: { service?: Category }) {
             key={t.service + t.text}
             className="flex flex-col rounded-lg border border-border bg-card p-6 transition hover:border-primary/30 md:p-7"
           >
-            <p className={`font-mono text-xs uppercase ${categoryMeta[t.service].color}`}>
-              {categoryMeta[t.service].label}
+            <p className={`font-mono text-xs uppercase ${serviceMeta[t.service].color}`}>
+              {serviceMeta[t.service].label}
             </p>
             <blockquote className="mt-6 flex-1 text-base leading-relaxed">“{t.text}”</blockquote>
             <figcaption className="mt-7 border-t border-border pt-4 text-sm">
@@ -595,7 +601,7 @@ export function FeaturedGrid({ category }: { category?: Category }) {
 }
 
 export function ServicePage(props: {
-  category: Category;
+  category: ServiceKey;
   eyebrow: string;
   title: ReactNode;
   intro: string;
@@ -612,7 +618,9 @@ export function ServicePage(props: {
         <div className="flex flex-wrap gap-3">
           <PrimaryButton to="/consultation">Book a Free Consultation</PrimaryButton>
           <GhostButton to={svc.portfolio}>
-            See {categoryMeta[props.category].label} work
+            {props.category === "shopify"
+              ? "See storefront inspiration"
+              : `See ${serviceMeta[props.category].label} work`}
           </GhostButton>
         </div>
       </PageHero>
@@ -655,9 +663,21 @@ export function ServicePage(props: {
           ))}
         </ol>
       </Section>
-      <Section eyebrow="Selected work" title="Featured projects">
-        <FeaturedGrid category={props.category} />
-      </Section>
+      {props.category === "shopify" ? (
+        <Section
+          eyebrow="Storefront inspiration"
+          title="Ecommerce Storefront Showcase"
+          intro="A curated set of third-party brand storefronts for inspiration. They are not my client projects."
+        >
+          <GhostButton to="/portfolio/shopify">
+            Browse the showcase <ArrowUpRight className="h-4 w-4" />
+          </GhostButton>
+        </Section>
+      ) : (
+        <Section eyebrow="Selected work" title="Featured projects">
+          <FeaturedGrid category={props.category} />
+        </Section>
+      )}
       <Testimonials service={props.category} />
     </>
   );

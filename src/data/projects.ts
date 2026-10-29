@@ -1,12 +1,12 @@
 import shopifyImg from "@/assets/shopify.jpg";
 import klaviyoImg from "@/assets/klaviyo.jpg";
 import animationImg from "@/assets/animation.jpg";
-import noirPreview from "@/assets/noir-thread-concept.jpg";
-import lumenPreview from "@/assets/lumen-skin-concept.jpg";
 import welcomePreview from "@/assets/welcome-series-concept.jpg";
 import checkoutPreview from "@/assets/checkout-series-concept.jpg";
 
-export type Category = "shopify" | "klaviyo" | "animation";
+export type Category = "klaviyo" | "animation";
+/** Service areas offered; Shopify has a storefront showcase instead of portfolio projects. */
+export type ServiceKey = "shopify" | Category;
 export type ProjectType =
   "Client Project" | "Concept Project" | "Demo Project" | "Personal Project";
 
@@ -35,12 +35,6 @@ export const categoryMeta: Record<
   Category,
   { label: string; image: string; color: string; route: string }
 > = {
-  shopify: {
-    label: "Shopify",
-    image: shopifyImg,
-    color: "text-shopify",
-    route: "/portfolio/shopify",
-  },
   klaviyo: {
     label: "Klaviyo",
     image: klaviyoImg,
@@ -55,311 +49,13 @@ export const categoryMeta: Record<
   },
 };
 
+export const serviceMeta: Record<ServiceKey, { label: string; image: string; color: string }> = {
+  shopify: { label: "Shopify", image: shopifyImg, color: "text-shopify" },
+  ...categoryMeta,
+};
+
 // [title, industry, description, deliverable focus]
 type Row = [string, string, string, string];
-
-const shopifyRows: Row[] = [
-  [
-    "Noir Thread Homepage",
-    "Fashion & Apparel",
-    "A monochrome homepage that leads with a single seasonal story before the product grid.",
-    "Homepage redesign",
-  ],
-  [
-    "Lumen Skin PDP",
-    "Beauty & Skincare",
-    "Product page that explains ingredients through a scannable routine builder.",
-    "Product page concept",
-  ],
-  [
-    "Orbit Jewelry Collections",
-    "Jewelry & Accessories",
-    "Collection layout that filters by metal, stone and occasion without page reloads.",
-    "Collection layout",
-  ],
-  [
-    "Hearth & Grain Home",
-    "Home Decor",
-    "Room-based shopping where visitors browse by space instead of product type.",
-    "Merchandising concept",
-  ],
-  [
-    "Volt Gadget Mobile",
-    "Electronics",
-    "Thumb-first mobile flow with sticky spec comparison and quick add.",
-    "Mobile shopping experience",
-  ],
-  [
-    "Pulse Fitness Store Audit",
-    "Fitness & Wellness",
-    "Annotated audit of navigation, trust signals and checkout friction points.",
-    "Store audit",
-  ],
-  [
-    "Pawly Subscription Box",
-    "Pet Products",
-    "Subscription-first PDP with flexible delivery frequency picker.",
-    "Product page concept",
-  ],
-  [
-    "Crumb & Co Gifting",
-    "Food & Gifting",
-    "Gift finder quiz that routes shoppers to curated bundles.",
-    "Gift finder concept",
-  ],
-  [
-    "Summit Gear Outdoors",
-    "Outdoor",
-    "Activity-led navigation for hikers, climbers and campers.",
-    "Navigation redesign",
-  ],
-  [
-    "Still Living Lifestyle",
-    "Lifestyle",
-    "Editorial journal blended into shoppable lookbook spreads.",
-    "Content-commerce layout",
-  ],
-  [
-    "Atelier Mono Menswear",
-    "Fashion & Apparel",
-    "Size-confidence module with fit notes and model measurements.",
-    "Size guide UX",
-  ],
-  [
-    "Glow Ritual Bundles",
-    "Beauty & Skincare",
-    "Build-your-own regimen bundle with progressive savings display.",
-    "Bundle builder",
-  ],
-  [
-    "Halo Rings Try-On",
-    "Jewelry & Accessories",
-    "Ring-size helper and virtual hand-preview placement.",
-    "Interactive PDP module",
-  ],
-  [
-    "Clay Studio Ceramics",
-    "Home Decor",
-    "Handmade-story product cards highlighting maker and batch.",
-    "Product card system",
-  ],
-  [
-    "Echo Audio Compare",
-    "Electronics",
-    "Side-by-side headphone comparison tables for mobile.",
-    "Comparison template",
-  ],
-  [
-    "Root Wellness Cart",
-    "Fitness & Wellness",
-    "Slide-out cart with progress toward free shipping and add-ons.",
-    "Cart drawer redesign",
-  ],
-  [
-    "Tailwag Treats Rebrand",
-    "Pet Products",
-    "Playful visual refresh with consistent iconography across the store.",
-    "Visual refresh",
-  ],
-  [
-    "Ember Coffee Roasters",
-    "Food & Gifting",
-    "Flavor-wheel filtering for single-origin coffees.",
-    "Collection filtering",
-  ],
-  [
-    "Trailcraft Packs",
-    "Outdoor",
-    "Capacity visualizer showing what fits inside each backpack.",
-    "Product visualization",
-  ],
-  [
-    "Calm Corner Candles",
-    "Lifestyle",
-    "Scent-profile navigation by mood and season.",
-    "Discovery navigation",
-  ],
-  [
-    "Verve Activewear Launch",
-    "Fashion & Apparel",
-    "Countdown landing page for a limited capsule drop.",
-    "Launch page",
-  ],
-  [
-    "Dew Botanics Trust Layer",
-    "Beauty & Skincare",
-    "Review, certification and ingredient-sourcing trust blocks.",
-    "Trust section system",
-  ],
-  [
-    "Facet Watches Story",
-    "Jewelry & Accessories",
-    "Scroll-driven craftsmanship story on the product page.",
-    "Storytelling PDP",
-  ],
-  [
-    "Nook Furniture AR Hooks",
-    "Home Decor",
-    "Dimension callouts and room-fit checklist before purchase.",
-    "Pre-purchase guidance",
-  ],
-  [
-    "Nimbus Smart Home",
-    "Electronics",
-    "Compatibility checker that confirms device ecosystem support.",
-    "Compatibility tool",
-  ],
-  [
-    "Stride Running Finder",
-    "Fitness & Wellness",
-    "Shoe finder based on gait, terrain and distance.",
-    "Product finder",
-  ],
-  [
-    "Furbase Pet Pharmacy",
-    "Pet Products",
-    "Reorder dashboard concept for recurring pet supplies.",
-    "Account page concept",
-  ],
-  [
-    "Saffron Spice Market",
-    "Food & Gifting",
-    "Recipe-linked product pages that sell the full ingredient set.",
-    "Cross-sell layout",
-  ],
-  [
-    "Driftwood Surf Co",
-    "Outdoor",
-    "Board-volume calculator embedded on collection pages.",
-    "Calculator module",
-  ],
-  [
-    "Paper & Ink Stationery",
-    "Lifestyle",
-    "Personalization preview for engraved notebooks.",
-    "Personalization UX",
-  ],
-  [
-    "Kin Kids Clothing",
-    "Fashion & Apparel",
-    "Age-and-size navigation designed for gift-buying relatives.",
-    "Navigation concept",
-  ],
-  [
-    "Pure Scalp Haircare",
-    "Beauty & Skincare",
-    "Hair-type diagnostic landing page feeding a starter kit.",
-    "Diagnostic landing page",
-  ],
-  [
-    "Linea Eyewear",
-    "Jewelry & Accessories",
-    "Face-shape guide and frame-width filters.",
-    "Fit guidance system",
-  ],
-  [
-    "Loom Rugs Swatches",
-    "Home Decor",
-    "Free swatch ordering flow alongside full-size products.",
-    "Sample ordering flow",
-  ],
-  [
-    "Arc Keyboards Builder",
-    "Electronics",
-    "Step-by-step custom keyboard configurator.",
-    "Product configurator",
-  ],
-  [
-    "Flow Yoga Studio Shop",
-    "Fitness & Wellness",
-    "Combined class-pass and merch storefront.",
-    "Hybrid storefront",
-  ],
-  [
-    "Whisker Toys Mobile",
-    "Pet Products",
-    "Swipe-friendly mobile product discovery for cat toys.",
-    "Mobile discovery",
-  ],
-  [
-    "Honeycomb Gift Hampers",
-    "Food & Gifting",
-    "Corporate gifting bulk-order page with tiered pricing.",
-    "B2B order page",
-  ],
-  [
-    "Basecamp Tents FAQ",
-    "Outdoor",
-    "Pre-sale FAQ and setup video modules to reduce hesitation.",
-    "PDP support content",
-  ],
-  [
-    "Ritual Tea House",
-    "Lifestyle",
-    "Brewing-guide tabs inside each tea product page.",
-    "Content tabs",
-  ],
-  [
-    "Sable Leather Goods",
-    "Fashion & Apparel",
-    "Material-close-up gallery with aging timeline.",
-    "Gallery concept",
-  ],
-  [
-    "Aura Fragrance Samples",
-    "Beauty & Skincare",
-    "Discovery-set-first journey with full-size credit.",
-    "Sampling journey",
-  ],
-  [
-    "Gild Charms Builder",
-    "Jewelry & Accessories",
-    "Charm bracelet builder with live preview.",
-    "Builder concept",
-  ],
-  [
-    "Haven Bedding Sleep Quiz",
-    "Home Decor",
-    "Sleep-style quiz that recommends fabric weight.",
-    "Quiz flow",
-  ],
-  [
-    "Quanta Phone Cases",
-    "Electronics",
-    "Device-first navigation that never shows incompatible cases.",
-    "Catalog structure",
-  ],
-  [
-    "Core Supplements Clarity",
-    "Fitness & Wellness",
-    "Clear dosage, ingredient and usage hierarchy on PDPs.",
-    "Information hierarchy",
-  ],
-  [
-    "Leash Lab Custom Tags",
-    "Pet Products",
-    "Engraving preview for pet ID tags.",
-    "Personalization module",
-  ],
-  [
-    "Ferment Kombucha Club",
-    "Food & Gifting",
-    "Flavor rotation subscription with skip and swap controls.",
-    "Subscription UX",
-  ],
-  [
-    "Northline Fishing",
-    "Outdoor",
-    "Species-and-season collection merchandising.",
-    "Merchandising concept",
-  ],
-  [
-    "Mono Desk Workspace",
-    "Lifestyle",
-    "Shop-the-setup pages that bundle complete desk setups.",
-    "Shoppable setups",
-  ],
-];
 
 const klaviyoRows: Row[] = [
   [
@@ -933,14 +629,11 @@ const animationRows: Row[] = [
 ];
 
 const toolsBy: Record<Category, string[]> = {
-  shopify: ["Shopify", "Figma", "Liquid"],
   klaviyo: ["Klaviyo", "Figma"],
   animation: ["AI video tools", "After Effects"],
 };
 
 const objectiveBy: Record<Category, (r: Row) => string> = {
-  shopify: (r) =>
-    `Explore how a ${r[3].toLowerCase()} could make shopping clearer and more confident for a ${r[1].toLowerCase()} brand.`,
   klaviyo: (r) =>
     `Show how a ${r[3].toLowerCase()} could deliver more relevant, well-timed messages for a ${r[1].toLowerCase()} audience.`,
   animation: (r) =>
@@ -948,7 +641,6 @@ const objectiveBy: Record<Category, (r: Row) => string> = {
 };
 
 const deliverablesBy: Record<Category, (r: Row) => string[]> = {
-  shopify: (r) => [r[3], "Desktop & mobile mockups", "Design rationale notes"],
   klaviyo: (r) => [r[3], "Email designs", "Flow / timing map", "Strategy notes"],
   animation: (r) => [r[3], "Vertical & landscape cuts", "Style frames"],
 };
@@ -964,24 +656,6 @@ const presentations: Record<
   string,
   { image: string; caption: string; approach: string; lesson: string }
 > = {
-  "shopify-noir-thread-homepage": {
-    image: noirPreview,
-    caption:
-      "Original concept visualization · desktop homepage, merchandising grid and mobile layout. Fictional brand; not a live Shopify store.",
-    approach:
-      "The composition gives one seasonal story room to breathe, then introduces a small essentials collection. Consistent product framing and a quieter navigation keep the shopping path visible on desktop and mobile.",
-    lesson:
-      "Editorial imagery works best when it leads into clear product discovery rather than competing with it. A production version would still need real catalog data, accessible interactions and checkout testing.",
-  },
-  "shopify-lumen-skin-pdp": {
-    image: lumenPreview,
-    caption:
-      "Original concept visualization · serum product page and mobile routine layout. Fictional products and prices for design purposes only.",
-    approach:
-      "Product photography and the purchase decision sit side by side. Ingredients, usage and the next routine step are separated into scannable layers so the page can support both quick shopping and closer inspection.",
-    lesson:
-      "A clear routine can explain a product without overwhelming the purchase area. Ingredient claims, product copy and accessibility would require review before a real launch.",
-  },
   "klaviyo-five-step-welcome-series": {
     image: welcomePreview,
     caption:
@@ -1037,7 +711,6 @@ function build(cat: Category, rows: Row[]): Project[] {
 }
 
 export const projects: Project[] = [
-  ...build("shopify", shopifyRows),
   ...build("klaviyo", klaviyoRows),
   ...build("animation", animationRows),
 ].filter((p) => p.published);
