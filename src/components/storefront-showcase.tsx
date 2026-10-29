@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +19,12 @@ const initials = (name: string) =>
 
 function Preview({ s }: { s: Storefront }) {
   const [state, setState] = useState<"loading" | "ok" | "error">("loading");
+  const ref = useRef<HTMLImageElement>(null);
+  // The image may finish loading before hydration attaches onLoad/onError.
+  useEffect(() => {
+    const img = ref.current;
+    if (img?.complete) setState(img.naturalWidth > 0 ? "ok" : "error");
+  }, []);
   return (
     <div className="relative aspect-[3/2] overflow-hidden rounded-lg border border-border bg-card">
       {state === "loading" && (
@@ -33,6 +39,7 @@ function Preview({ s }: { s: Storefront }) {
         </div>
       ) : (
         <img
+          ref={ref}
           src={previewUrl(s)}
           alt={`Homepage preview of the ${s.name} website`}
           loading="lazy"
