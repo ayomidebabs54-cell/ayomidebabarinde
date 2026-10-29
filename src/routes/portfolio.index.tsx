@@ -4,8 +4,8 @@ import { PageHero, Section, PortfolioBrowser, seo } from "@/components/site";
 export const Route = createFileRoute("/portfolio/")({
   head: () =>
     seo(
-      "Portfolio — 150 Shopify, Klaviyo & AI Animation Projects",
-      "Browse 150 labeled concept and demo projects across Shopify design, Klaviyo email and AI animation.",
+      "Portfolio — Klaviyo Email & AI Animation Projects",
+      "Browse labeled concept and demo projects across Klaviyo email and AI animation, plus a storefront inspiration showcase.",
       "/portfolio",
     ),
   component: () => (

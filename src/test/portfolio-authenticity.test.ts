@@ -42,14 +42,17 @@ describe("Testimonial publication rules", () => {
 
 describe("Project authenticity", () => {
   it("keeps all existing projects and excludes unfinished visuals from featured work", () => {
-    expect(projects).toHaveLength(150);
-    expect(projects.filter((p) => p.featured)).toHaveLength(5);
+    expect(projects).toHaveLength(100);
+    expect(projects.filter((p) => p.featured)).toHaveLength(3);
     expect(projects.filter((p) => p.featured).every((p) => p.visualReady)).toBe(true);
-    expect(visualBacklog).toHaveLength(145);
+    expect(visualBacklog).toHaveLength(97);
+  });
+  it("contains no Shopify portfolio projects", () => {
+    expect(projects.some((p) => (p.category as string) === "shopify")).toBe(false);
   });
   it("uses distinct project-specific previews for all featured work", () => {
     const featured = projects.filter((p) => p.featured);
-    expect(new Set(featured.map((p) => p.image)).size).toBe(5);
+    expect(new Set(featured.map((p) => p.image)).size).toBe(3);
     expect(featured.every((p) => p.type === "Concept Project")).toBe(true);
     expect(featured.find((p) => p.category === "animation")?.visualCaption).toContain(
       "Static AI-assisted style frame",

@@ -3,7 +3,7 @@ import { ArrowUpRight, MessageCircle } from "lucide-react";
 import portrait from "@/assets/portrait.jpg.asset.json";
 import ambient from "@/assets/ambient.jpg";
 import { site, services, hasWhatsApp } from "@/config/site";
-import { categoryMeta } from "@/data/projects";
+import { serviceMeta } from "@/data/projects";
 import {
   PrimaryButton,
   GhostButton,
@@ -165,7 +165,7 @@ function Home() {
               className="group overflow-hidden rounded-3xl border border-border bg-card"
             >
               <img
-                src={categoryMeta[s.key].image}
+                src={serviceMeta[s.key].image}
                 alt={s.name}
                 loading="lazy"
                 width={1200}
@@ -198,7 +198,7 @@ function Home() {
           {services.map((s) => (
             <div key={s.key} className="rounded-3xl glass p-6">
               <p className={`font-mono text-xs uppercase tracking-wider ${s.color}`}>
-                {categoryMeta[s.key].label}
+                {serviceMeta[s.key].label}
               </p>
               <ul className="mt-4 space-y-3 text-sm">
                 {(problems[s.key] ?? []).map((p) => (
@@ -227,7 +227,7 @@ function Home() {
       <Section
         eyebrow="Featured work"
         title="Selected projects"
-        intro="Storefront design, lifecycle email and creative direction. A curated selection of original concept visualizations — not commissioned client work."
+        intro="Lifecycle email and creative direction. A curated selection of original concept visualizations — not commissioned client work."
       >
         <FeaturedGrid />
         <div className="mt-10">
