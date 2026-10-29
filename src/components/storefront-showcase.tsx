@@ -40,6 +40,7 @@ function Preview({ s }: { s: Storefront }) {
       ) : (
         <img
           ref={ref}
+          referrerPolicy="no-referrer"
           src={previewUrl(s)}
           alt={`Homepage preview of the ${s.name} website`}
           loading="lazy"
