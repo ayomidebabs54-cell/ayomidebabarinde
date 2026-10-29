@@ -32,7 +32,10 @@ function Preview({ s }: { s: Storefront }) {
       )}
       {state === "error" ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-secondary/40">
-          <span className="font-mono text-3xl font-semibold text-muted-foreground" aria-hidden="true">
+          <span
+            className="font-mono text-3xl font-semibold text-muted-foreground"
+            aria-hidden="true"
+          >
             {initials(s.name)}
           </span>
           <span className="text-xs text-muted-foreground">Preview unavailable</span>
@@ -66,7 +69,11 @@ export function StorefrontShowcase() {
   );
   return (
     <div>
-      <div role="group" aria-label="Storefront category" className="flex flex-wrap gap-2 border-b border-border pb-5">
+      <div
+        role="group"
+        aria-label="Storefront category"
+        className="flex flex-wrap gap-2 border-b border-border pb-5"
+      >
         {(["all", ...available] as const).map((c) => (
           <Button
             key={c}
