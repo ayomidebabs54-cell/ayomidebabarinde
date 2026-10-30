@@ -16,6 +16,7 @@ describe("App routing", () => {
   });
 
   it.each([
+    "/portfolio/klaviyo",
     "/consultation",
     "/contact",
     "/privacy",
