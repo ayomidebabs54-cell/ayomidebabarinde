@@ -3,10 +3,8 @@
 - [x] Portfolio update: five project-specific previews and honest asset backlog
 - [x] Portfolio update: richer project details and credible client experiences
 - [x] Portfolio update: 10 passing tests; filters, detail links, image loading and mobile overflow checked
-- [ ] Remaining visual polish and screenshot recheck: credits unavailable; 145 briefs still await project-specific visuals
-- [ ] Remaining pages: opportunity-checker, project-planner, resources
-- [ ] Batch 1: consultation, contact, privacy routes
-- [ ] Batch 1: InquiryForm upgrade (labels, zod, aria, service follow-ups, copy fallback)
-- [ ] Batch 1: isConfigured guard, bookingUrl empty, hide unconfigured links
-- [ ] Batch 1: mobile menu keyboard/aria, focus ring, reduced motion
-- [ ] Batch 1: routing tests for /consultation /contact /privacy; lint + tests
+- [x] Batch 1: consultation, contact, privacy routes; InquiryForm upgrade; config guards; a11y; routing tests
+- [x] Storefront showcase replacing Shopify portfolio (15 third-party sites)
+- [x] Klaviyo portfolio: 26 email examples with brand collections and modal
+- [ ] Capture real Milled email screenshots for all 26 examples, save as local assets, wire into gallery + modal; report any that fail
+- [ ] Remaining visual polish: 145 briefs still await project-specific visuals
