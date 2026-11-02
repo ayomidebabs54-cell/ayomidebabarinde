@@ -114,13 +114,22 @@ function EmailCard({ email, onOpen }: { email: EmailExample; onOpen: () => void 
         aria-label={`Preview details for “${email.title}” by ${email.brand}`}
         className="relative flex aspect-[4/3] flex-col items-center justify-center gap-3 overflow-hidden rounded-lg border border-border bg-card text-center transition group-hover:border-primary/40"
       >
-        <span
-          aria-hidden="true"
-          className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-brand font-display text-xl font-bold text-primary-foreground shadow-glow transition duration-700 group-hover:scale-105"
-        >
-          {initials(email.brand)}
-        </span>
-        <span className="px-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+        {email.previewStatus === "ready" && email.preview ? (
+          <img
+            src={email.preview}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <span
+            aria-hidden="true"
+            className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-brand font-display text-xl font-bold text-primary-foreground shadow-glow transition duration-700 group-hover:scale-105"
+          >
+            {initials(email.brand)}
+          </span>
+        )}
+        <span className="relative mt-auto mb-16 px-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sr-only">
           {email.category}
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 px-3.5 py-1.5 text-xs font-medium text-foreground">
