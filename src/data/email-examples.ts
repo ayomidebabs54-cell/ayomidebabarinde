@@ -6,12 +6,26 @@
  * and no design, build, management or performance ownership is claimed.
  *
  * Preview status: Milled requires a signed-in account to view archived emails
- * and blocks embedding (X-Frame-Options: SAMEORIGIN), so no original email
- * artwork can be retrieved or displayed. Every entry currently renders as a
- * branded fallback card with an on-site detail modal. If a properly licensed
- * preview image becomes available, add its path to `preview` and set
- * `previewStatus: "ready"`.
+ * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 12 emails that
+ * are also publicly archived on InboxLetter, full-length screenshots of the
+ * original email designs were captured and are served as local CDN assets
+ * (previewStatus: "ready"). The remaining 14 could not be captured from any
+ * public source and render as branded fallback cards until the owner supplies
+ * screenshots manually.
  */
+
+import bbbCloseout from "@/assets/email-previews/bed-bath-beyond-beyond-big-closeout-sale-ends-tonight.webp.asset.json";
+import bbbGuestReady from "@/assets/email-previews/bed-bath-beyond-get-guest-ready-save-up-to-60.webp.asset.json";
+import bbbHoliday from "@/assets/email-previews/bed-bath-beyond-holiday-decorating-starts-here.webp.asset.json";
+import bbbLightUp from "@/assets/email-previews/bed-bath-beyond-light-up-your-home-for-up-to-60-off.webp.asset.json";
+import casperMattressRemoval from "@/assets/email-previews/casper-free-mattress-removal.webp.asset.json";
+import casperLastChance from "@/assets/email-previews/casper-last-chance-to-save-25.webp.asset.json";
+import casperProof from "@/assets/email-previews/casper-the-proof-is-in-the-sleeping.webp.asset.json";
+import casperMissing from "@/assets/email-previews/casper-whats-missing-from-your-bed.webp.asset.json";
+import lwForget from "@/assets/email-previews/love-wellness-did-you-forget-something.webp.asset.json";
+import lwReviewsAlt from "@/assets/email-previews/love-wellness-real-people-real-reviews-alt.webp.asset.json";
+import lwReviews from "@/assets/email-previews/love-wellness-real-people-real-reviews.webp.asset.json";
+import lwHype from "@/assets/email-previews/love-wellness-women-dont-need-hype.webp.asset.json";
 
 export type EmailCategory =
   | "Promotional Campaigns"
@@ -240,15 +254,36 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const emailExamples: EmailExample[] = rows.map((r) => ({
-  slug: slugify(`${r[0]}-${r[1]}`),
-  brand: r[0],
-  title: r[1],
-  sourceUrl: r[2],
-  category: r[3],
-  note: r[4],
-  previewStatus: "unavailable",
-}));
+/** Captured full-length screenshots, keyed by entry slug. */
+const PREVIEWS: Record<string, string> = {
+  "love-wellness-women-don-t-need-hype-they-need-results": lwHype.url,
+  "love-wellness-did-you-forget-something": lwForget.url,
+  "love-wellness-real-people-real-reviews": lwReviews.url,
+  "love-wellness-real-people-real-reviews-alternative-version": lwReviewsAlt.url,
+  "bed-bath-beyond-holiday-decorating-starts-here": bbbHoliday.url,
+  "bed-bath-beyond-beyond-big-closeout-sale-ends-tonight": bbbCloseout.url,
+  "bed-bath-beyond-light-up-your-home-for-up-to-60-off": bbbLightUp.url,
+  "bed-bath-beyond-get-guest-ready-save-up-to-60": bbbGuestReady.url,
+  "casper-free-mattress-removal": casperMattressRemoval.url,
+  "casper-what-s-missing-from-your-bed": casperMissing.url,
+  "casper-last-chance-to-save-25": casperLastChance.url,
+  "casper-the-proof-is-in-the-sleeping": casperProof.url,
+};
+
+export const emailExamples: EmailExample[] = rows.map((r) => {
+  const slug = slugify(`${r[0]}-${r[1]}`);
+  const preview = PREVIEWS[slug];
+  return {
+    slug,
+    brand: r[0],
+    title: r[1],
+    sourceUrl: r[2],
+    category: r[3],
+    note: r[4],
+    ...(preview ? { preview } : {}),
+    previewStatus: preview ? "ready" : "unavailable",
+  };
+});
 
 export const EMAIL_CATEGORIES: EmailCategory[] = [
   "Promotional Campaigns",
