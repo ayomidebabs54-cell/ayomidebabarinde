@@ -38,4 +38,21 @@ describe("Email examples data", () => {
       else expect(e.preview).toBeUndefined();
     }
   });
+
+  it("has captured screenshots for exactly the 12 publicly archived emails", () => {
+    const ready = emailExamples.filter((e) => e.previewStatus === "ready");
+    expect(ready).toHaveLength(12);
+    for (const e of ready) {
+      expect(e.preview).toMatch(/^\/__l5e\/assets-v1\/.+\.webp$/);
+    }
+    const readyBrands = ready.reduce<Record<string, number>>((acc, e) => {
+      acc[e.brand] = (acc[e.brand] ?? 0) + 1;
+      return acc;
+    }, {});
+    expect(readyBrands).toEqual({
+      "Love Wellness": 4,
+      "Bed Bath & Beyond": 4,
+      Casper: 4,
+    });
+  });
 });
