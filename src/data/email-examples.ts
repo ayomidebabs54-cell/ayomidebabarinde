@@ -280,7 +280,7 @@ export const emailExamples: EmailExample[] = rows.map((r) => {
     sourceUrl: r[2],
     category: r[3],
     note: r[4],
-    preview,
+    ...(preview ? { preview } : {}),
     previewStatus: preview ? "ready" : "unavailable",
   };
 });
