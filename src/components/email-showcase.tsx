@@ -95,8 +95,9 @@ function EmailModal({ email, onClose }: { email: EmailExample; onClose: () => vo
           )}
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{email.note}</p>
           <p className="mt-6 border-t border-border pt-4 text-xs text-muted-foreground">
-            Source: Milled email archive (milled.com). This email was published by {email.brand};
-            it is shown here as an inspiration example, not as work by this studio.
+            {email.previewStatus === "ready"
+              ? `Screenshot of the original email as publicly archived on InboxLetter (inboxletter.com); also archived on Milled. This email was published by ${email.brand} and is shown here as an inspiration example, not as work by this studio.`
+              : `Source: Milled email archive (milled.com). This email was published by ${email.brand}; it is shown here as an inspiration example, not as work by this studio.`}
           </p>
         </div>
       </div>
@@ -129,10 +130,8 @@ function EmailCard({ email, onOpen }: { email: EmailExample; onOpen: () => void 
             {initials(email.brand)}
           </span>
         )}
-        <span className="relative mt-auto mb-16 px-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sr-only">
-          {email.category}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 px-3.5 py-1.5 text-xs font-medium text-foreground">
+        <span className="sr-only">{email.category}</span>
+        <span className="relative inline-flex items-center gap-1.5 rounded-full border border-border bg-background/90 px-3.5 py-1.5 text-xs font-medium text-foreground backdrop-blur-sm">
           <Mail className="h-3.5 w-3.5" aria-hidden="true" /> Preview Email
         </span>
       </button>
