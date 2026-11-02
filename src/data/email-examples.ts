@@ -254,15 +254,36 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const emailExamples: EmailExample[] = rows.map((r) => ({
-  slug: slugify(`${r[0]}-${r[1]}`),
-  brand: r[0],
-  title: r[1],
-  sourceUrl: r[2],
-  category: r[3],
-  note: r[4],
-  previewStatus: "unavailable",
-}));
+/** Captured full-length screenshots, keyed by entry slug. */
+const PREVIEWS: Record<string, string> = {
+  "love-wellness-women-don-t-need-hype-they-need-results": lwHype.url,
+  "love-wellness-did-you-forget-something": lwForget.url,
+  "love-wellness-real-people-real-reviews": lwReviews.url,
+  "love-wellness-real-people-real-reviews-alternative-version": lwReviewsAlt.url,
+  "bed-bath-beyond-holiday-decorating-starts-here": bbbHoliday.url,
+  "bed-bath-beyond-beyond-big-closeout-sale-ends-tonight": bbbCloseout.url,
+  "bed-bath-beyond-light-up-your-home-for-up-to-60-off": bbbLightUp.url,
+  "bed-bath-beyond-get-guest-ready-save-up-to-60": bbbGuestReady.url,
+  "casper-free-mattress-removal": casperMattressRemoval.url,
+  "casper-what-s-missing-from-your-bed": casperMissing.url,
+  "casper-last-chance-to-save-25": casperLastChance.url,
+  "casper-the-proof-is-in-the-sleeping": casperProof.url,
+};
+
+export const emailExamples: EmailExample[] = rows.map((r) => {
+  const slug = slugify(`${r[0]}-${r[1]}`);
+  const preview = PREVIEWS[slug];
+  return {
+    slug,
+    brand: r[0],
+    title: r[1],
+    sourceUrl: r[2],
+    category: r[3],
+    note: r[4],
+    preview,
+    previewStatus: preview ? "ready" : "unavailable",
+  };
+});
 
 export const EMAIL_CATEGORIES: EmailCategory[] = [
   "Promotional Campaigns",
