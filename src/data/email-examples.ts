@@ -6,10 +6,10 @@
  * and no design, build, management or performance ownership is claimed.
  *
  * Preview status: Milled requires a signed-in account to view archived emails
- * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 12 emails that
+ * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 16 emails that
  * are also publicly archived on InboxLetter, full-length screenshots of the
  * original email designs were captured and are served as local CDN assets
- * (previewStatus: "ready"). The remaining 14 could not be captured from any
+ * (previewStatus: "ready"). The remaining 10 could not be captured from any
  * public source and render as branded fallback cards until the owner supplies
  * screenshots manually.
  */
@@ -18,10 +18,14 @@ import bbbCloseout from "@/assets/email-previews/bed-bath-beyond-beyond-big-clos
 import bbbGuestReady from "@/assets/email-previews/bed-bath-beyond-get-guest-ready-save-up-to-60.webp.asset.json";
 import bbbHoliday from "@/assets/email-previews/bed-bath-beyond-holiday-decorating-starts-here.webp.asset.json";
 import bbbLightUp from "@/assets/email-previews/bed-bath-beyond-light-up-your-home-for-up-to-60-off.webp.asset.json";
+import bbbFallArrivals from "@/assets/email-previews/bed-bath-beyond-25-off-new-fall-arrivals-ends-tomorrow.webp.asset.json";
 import casperMattressRemoval from "@/assets/email-previews/casper-free-mattress-removal.webp.asset.json";
 import casperLastChance from "@/assets/email-previews/casper-last-chance-to-save-25.webp.asset.json";
 import casperProof from "@/assets/email-previews/casper-the-proof-is-in-the-sleeping.webp.asset.json";
 import casperMissing from "@/assets/email-previews/casper-whats-missing-from-your-bed.webp.asset.json";
+import casperFinalHours from "@/assets/email-previews/casper-final-hours-extra-5-on-bundles.webp.asset.json";
+import casperSave25 from "@/assets/email-previews/casper-save-25-for-3-days-only.webp.asset.json";
+import casperExtra5 from "@/assets/email-previews/casper-extra-5-ends-tonight-dont-miss-it.webp.asset.json";
 import lwForget from "@/assets/email-previews/love-wellness-did-you-forget-something.webp.asset.json";
 import lwReviewsAlt from "@/assets/email-previews/love-wellness-real-people-real-reviews-alt.webp.asset.json";
 import lwReviews from "@/assets/email-previews/love-wellness-real-people-real-reviews.webp.asset.json";
@@ -264,10 +268,14 @@ const PREVIEWS: Record<string, string> = {
   "bed-bath-beyond-beyond-big-closeout-sale-ends-tonight": bbbCloseout.url,
   "bed-bath-beyond-light-up-your-home-for-up-to-60-off": bbbLightUp.url,
   "bed-bath-beyond-get-guest-ready-save-up-to-60": bbbGuestReady.url,
+  "bed-bath-beyond-25-off-new-fall-arrivals-ends-tomorrow": bbbFallArrivals.url,
   "casper-free-mattress-removal": casperMattressRemoval.url,
   "casper-what-s-missing-from-your-bed": casperMissing.url,
   "casper-last-chance-to-save-25": casperLastChance.url,
   "casper-the-proof-is-in-the-sleeping": casperProof.url,
+  "casper-final-hours-extra-5-on-bundles": casperFinalHours.url,
+  "casper-save-25-for-3-days-only": casperSave25.url,
+  "casper-extra-5-ends-tonight-don-t-miss-it": casperExtra5.url,
 };
 
 export const emailExamples: EmailExample[] = rows.map((r) => {
