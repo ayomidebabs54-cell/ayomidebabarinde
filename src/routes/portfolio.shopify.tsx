@@ -22,10 +22,7 @@ function StorefrontPage() {
         title="Ecommerce Storefront Showcase"
         intro="Explore a curated collection of ecommerce storefronts across beauty, fashion, food, wellness, and lifestyle. Discover different approaches to visual branding, product presentation, navigation, and the online shopping experience."
       >
-        <p className="max-w-2xl rounded-2xl border border-dashed border-border p-4 text-sm text-muted-foreground">
-          These websites are third-party brand examples for inspiration and showcase purposes. They
-          are not my client projects, and I did not design, build or manage them.
-        </p>
+        <p className="max-w-2xl rounded-2xl border border-dashed border-border p-4 text-sm text-muted-foreground">{"\n"}</p>
       </PageHero>
       <Section>
         <StorefrontShowcase />
