@@ -6,10 +6,10 @@
  * and no design, build, management or performance ownership is claimed.
  *
  * Preview status: Milled requires a signed-in account to view archived emails
- * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 15 emails that
+ * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 16 emails that
  * are also publicly archived on InboxLetter, full-length screenshots of the
  * original email designs were captured and are served as local CDN assets
- * (previewStatus: "ready"). The remaining 11 could not be captured from any
+ * (previewStatus: "ready"). The remaining 10 could not be captured from any
  * public source and render as branded fallback cards until the owner supplies
  * screenshots manually.
  */
@@ -18,6 +18,7 @@ import bbbCloseout from "@/assets/email-previews/bed-bath-beyond-beyond-big-clos
 import bbbGuestReady from "@/assets/email-previews/bed-bath-beyond-get-guest-ready-save-up-to-60.webp.asset.json";
 import bbbHoliday from "@/assets/email-previews/bed-bath-beyond-holiday-decorating-starts-here.webp.asset.json";
 import bbbLightUp from "@/assets/email-previews/bed-bath-beyond-light-up-your-home-for-up-to-60-off.webp.asset.json";
+import bbbFallArrivals from "@/assets/email-previews/bed-bath-beyond-25-off-new-fall-arrivals-ends-tomorrow.webp.asset.json";
 import casperMattressRemoval from "@/assets/email-previews/casper-free-mattress-removal.webp.asset.json";
 import casperLastChance from "@/assets/email-previews/casper-last-chance-to-save-25.webp.asset.json";
 import casperProof from "@/assets/email-previews/casper-the-proof-is-in-the-sleeping.webp.asset.json";
@@ -267,6 +268,7 @@ const PREVIEWS: Record<string, string> = {
   "bed-bath-beyond-beyond-big-closeout-sale-ends-tonight": bbbCloseout.url,
   "bed-bath-beyond-light-up-your-home-for-up-to-60-off": bbbLightUp.url,
   "bed-bath-beyond-get-guest-ready-save-up-to-60": bbbGuestReady.url,
+  "bed-bath-beyond-25-off-new-fall-arrivals-ends-tomorrow": bbbFallArrivals.url,
   "casper-free-mattress-removal": casperMattressRemoval.url,
   "casper-what-s-missing-from-your-bed": casperMissing.url,
   "casper-last-chance-to-save-25": casperLastChance.url,
