@@ -6,10 +6,10 @@
  * and no design, build, management or performance ownership is claimed.
  *
  * Preview status: Milled requires a signed-in account to view archived emails
- * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 12 emails that
+ * and blocks embedding (X-Frame-Options: SAMEORIGIN). For the 15 emails that
  * are also publicly archived on InboxLetter, full-length screenshots of the
  * original email designs were captured and are served as local CDN assets
- * (previewStatus: "ready"). The remaining 14 could not be captured from any
+ * (previewStatus: "ready"). The remaining 11 could not be captured from any
  * public source and render as branded fallback cards until the owner supplies
  * screenshots manually.
  */

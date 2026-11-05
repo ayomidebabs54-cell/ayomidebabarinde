@@ -39,9 +39,9 @@ describe("Email examples data", () => {
     }
   });
 
-  it("has captured screenshots for exactly the 12 publicly archived emails", () => {
+  it("has captured screenshots for exactly the 15 publicly archived emails", () => {
     const ready = emailExamples.filter((e) => e.previewStatus === "ready");
-    expect(ready).toHaveLength(12);
+    expect(ready).toHaveLength(15);
     for (const e of ready) {
       expect(e.preview).toMatch(/^\/__l5e\/assets-v1\/.+\.webp$/);
     }
@@ -52,7 +52,7 @@ describe("Email examples data", () => {
     expect(readyBrands).toEqual({
       "Love Wellness": 4,
       "Bed Bath & Beyond": 4,
-      Casper: 4,
+      Casper: 7,
     });
   });
 });
