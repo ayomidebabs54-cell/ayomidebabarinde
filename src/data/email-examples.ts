@@ -22,6 +22,9 @@ import casperMattressRemoval from "@/assets/email-previews/casper-free-mattress-
 import casperLastChance from "@/assets/email-previews/casper-last-chance-to-save-25.webp.asset.json";
 import casperProof from "@/assets/email-previews/casper-the-proof-is-in-the-sleeping.webp.asset.json";
 import casperMissing from "@/assets/email-previews/casper-whats-missing-from-your-bed.webp.asset.json";
+import casperFinalHours from "@/assets/email-previews/casper-final-hours-extra-5-on-bundles.webp.asset.json";
+import casperSave25 from "@/assets/email-previews/casper-save-25-for-3-days-only.webp.asset.json";
+import casperExtra5 from "@/assets/email-previews/casper-extra-5-ends-tonight-dont-miss-it.webp.asset.json";
 import lwForget from "@/assets/email-previews/love-wellness-did-you-forget-something.webp.asset.json";
 import lwReviewsAlt from "@/assets/email-previews/love-wellness-real-people-real-reviews-alt.webp.asset.json";
 import lwReviews from "@/assets/email-previews/love-wellness-real-people-real-reviews.webp.asset.json";
@@ -268,6 +271,9 @@ const PREVIEWS: Record<string, string> = {
   "casper-what-s-missing-from-your-bed": casperMissing.url,
   "casper-last-chance-to-save-25": casperLastChance.url,
   "casper-the-proof-is-in-the-sleeping": casperProof.url,
+  "casper-final-hours-extra-5-on-bundles": casperFinalHours.url,
+  "casper-save-25-for-3-days-only": casperSave25.url,
+  "casper-extra-5-ends-tonight-don-t-miss-it": casperExtra5.url,
 };
 
 export const emailExamples: EmailExample[] = rows.map((r) => {
